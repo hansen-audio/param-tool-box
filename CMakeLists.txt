@@ -13,16 +13,16 @@ FetchContent_Declare(
 
 FetchContent_MakeAvailable(googletest)
 
-project(ParamToolBox)
+project(ha-param-tool-box)
 
-add_library(paramtoolbox STATIC  
+add_library(param-tool-box STATIC  
     include/ha/ptb/paramvaluequeueprocessor.h
     include/ha/ptb/paramramp.h
     source/paramramp.cpp
     source/paramvaluequeueprocessor.cpp
 )
 
-target_include_directories(paramtoolbox
+target_include_directories(param-tool-box
     PUBLIC
         ${CMAKE_CURRENT_LIST_DIR}/include
     PRIVATE
@@ -31,13 +31,13 @@ target_include_directories(paramtoolbox
 
 enable_testing()
 
-add_executable(paramtoolbox_test
+add_executable(param-tool-box_test
     test/paramvaluequeueprocessor_test.cpp
 )
 
-target_link_libraries(paramtoolbox_test
+target_link_libraries(param-tool-box_test
     PRIVATE
-        paramtoolbox
+        param-tool-box
         gtest
         gtest_main
 )
