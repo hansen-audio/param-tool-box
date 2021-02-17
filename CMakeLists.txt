@@ -4,16 +4,9 @@ include(FetchContent)
 
 set(CMAKE_CXX_STANDARD 14)
 
-### External
-FetchContent_Declare(
-    googletest
-    GIT_REPOSITORY https://github.com/google/googletest.git
-    GIT_TAG 609281088cfefc76f9d0ce82e1ff6c30cc3591e5
-)
-
-FetchContent_MakeAvailable(googletest)
-
 project(ha-param-tool-box)
+
+add_subdirectory(external)
 
 add_library(param-tool-box STATIC  
     include/ha/ptb/paramvaluequeueprocessor.h
