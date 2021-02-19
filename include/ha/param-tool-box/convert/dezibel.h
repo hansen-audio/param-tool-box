@@ -43,13 +43,23 @@ public:
 
     RealType toPhysical(RealType normalized) const
     {
+#if __cplusplus < 201700
+        normalized = std::max(normalized, kNormMin);
+        normalized = std::min(normalized, RealType(1));
+#else
         normalized = std::clamp(normalized, kNormMin, RealType(1));
+#endif
         return RealType(20.) * log(normalized) / log(RealType(10.));
     }
 
     RealType toNormalized(RealType physical) const
     {
-        physical = std::clamp(physical, kMin, kMax);
+#if __cplusplus < 201700
+        physical = std::max(physical, kMin);
+        physical = std::min(physical, kMax);
+#else
+        physical   = std::clamp(physical, kMin, kMax);
+#endif
         return pow(RealType(10.), RealType(1.) / RealType(20.) * physical);
     }
 
