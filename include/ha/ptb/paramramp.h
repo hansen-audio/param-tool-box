@@ -24,7 +24,6 @@ private:
     mut_ValueType src   = 0.f;
     mut_ValueType dst   = 0.f;
     mut_ValueType delta = 0.1f;
-    int numSamples      = 32;
 };
 
 //-----------------------------------------------------------------------------

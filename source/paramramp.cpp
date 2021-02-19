@@ -1,6 +1,7 @@
 // Copyright(c) 2021 Hansen Audio.
 
 #include "ha/ptb/paramramp.h"
+#include <algorithm>
 #include <math.h>
 
 namespace HA {
@@ -35,13 +36,12 @@ namespace PTB {
 //-----------------------------------------------------------------------------
 // ParamRamp
 //-----------------------------------------------------------------------------
-ParamRamp::ParamRamp(ValueType src, ValueType dst, int _numSamples)
+ParamRamp::ParamRamp(ValueType src, ValueType dst, int numSamples)
 : src(src)
 , dst(dst)
-, numSamples(_numSamples)
+, delta(calcDelta(src, dst, std::max(numSamples, 1)))
 {
-    numSamples = numSamples == 0 ? 1 : numSamples;
-    delta      = calcDelta(src, dst, numSamples);
+    // _numSamples > 0 to prevent division by zero.
 }
 
 //-----------------------------------------------------------------------------
