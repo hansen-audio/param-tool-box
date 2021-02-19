@@ -1,6 +1,6 @@
 // Copyright(c) 2021 Hansen Audio.
 
-#include "ha/param-tool-box/rampprocessor.h"
+#include "ha/param-tool-box/process/rampprocessor.h"
 #include <algorithm>
 
 namespace HA {

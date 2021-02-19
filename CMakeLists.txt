@@ -9,8 +9,8 @@ project(ha-param-tool-box)
 add_subdirectory(external)
 
 add_library(param-tool-box STATIC  
-    include/ha/param-tool-box/rampprocessor.h
-    include/ha/param-tool-box/ramp.h
+    include/ha/param-tool-box/process/rampprocessor.h
+    include/ha/param-tool-box/process/ramp.h
     source/ramp.cpp
     source/rampprocessor.cpp
 )
