@@ -1,6 +1,6 @@
 // Copyright(c) 2021 Hansen Audio.
 
-#include "ha/ptb/paramramp.h"
+#include "ha/param-tool-box/ramp.h"
 #include <algorithm>
 #include <math.h>
 
@@ -34,9 +34,9 @@ T calcDelta(T cur, T dst, int n)
 
 namespace PTB {
 //-----------------------------------------------------------------------------
-// ParamRamp
+// Ramp
 //-----------------------------------------------------------------------------
-ParamRamp::ParamRamp(ValueType src, ValueType dst, int numSamples)
+Ramp::Ramp(ValueType src, ValueType dst, int numSamples)
 : src(src)
 , dst(dst)
 , delta(calcDelta(src, dst, std::max(numSamples, 1)))
@@ -45,13 +45,13 @@ ParamRamp::ParamRamp(ValueType src, ValueType dst, int numSamples)
 }
 
 //-----------------------------------------------------------------------------
-ParamRamp::ValueType ParamRamp::advance(ValueType x)
+Ramp::ValueType Ramp::advance(ValueType x)
 {
     return dezip(x, delta, dst);
 }
 
 //-----------------------------------------------------------------------------
-bool ParamRamp::isDone(ValueType x) const
+bool Ramp::isDone(ValueType x) const
 {
     return x == dst;
 }

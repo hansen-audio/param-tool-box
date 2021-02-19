@@ -1,6 +1,6 @@
 // Copyright(c) 2021 Hansen Audio.
 
-#include "ha/ptb/paramrampprocessor.h"
+#include "ha/param-tool-box/rampprocessor.h"
 
 #include "gtest/gtest.h"
 
@@ -8,8 +8,8 @@
 
 using namespace HA::PTB;
 
-using ValueType     = ParamRampProcessor::ValueType;
-using mut_ValueType = ParamRampProcessor::mut_ValueType;
+using ValueType     = RampProcessor::ValueType;
+using mut_ValueType = RampProcessor::mut_ValueType;
 
 struct ParamData
 {
@@ -21,7 +21,7 @@ using ParamValueQueue = std::vector<ParamData>;
 
 namespace {
 //-----------------------------------------------------------------------------
-TEST(ParamToolBoxTest, testParamRampProcessor_invalidQueue)
+TEST(ParamToolBoxTest, testRampProcessor_invalidQueue)
 {
     constexpr float kInitVal = 0.5f;
     int counter              = 0;
@@ -30,7 +30,7 @@ TEST(ParamToolBoxTest, testParamRampProcessor_invalidQueue)
         return false;
     };
 
-    ParamRampProcessor proc(cb, kInitVal);
+    RampProcessor proc(cb, kInitVal);
     EXPECT_FLOAT_EQ(proc.getValue(), kInitVal);
     EXPECT_FLOAT_EQ(proc.advance(), kInitVal);
     EXPECT_FLOAT_EQ(proc.advance(), kInitVal);
@@ -39,7 +39,7 @@ TEST(ParamToolBoxTest, testParamRampProcessor_invalidQueue)
 }
 
 //-----------------------------------------------------------------------------
-TEST(ParamToolBoxTest, testParamRampProcessor_noRampValueFromGUIEditor)
+TEST(ParamToolBoxTest, testRampProcessor_noRampValueFromGUIEditor)
 {
     static const ParamValueQueue kValueQueue = {{0, 0.75f}};
     constexpr float kInitVal                 = 0.5f;
@@ -57,7 +57,7 @@ TEST(ParamToolBoxTest, testParamRampProcessor_noRampValueFromGUIEditor)
         return false;
     };
 
-    ParamRampProcessor proc(cb, kInitVal);
+    RampProcessor proc(cb, kInitVal);
     EXPECT_FLOAT_EQ(proc.getValue(), 0.75f);
     EXPECT_FLOAT_EQ(proc.advance(), 0.75f);
     EXPECT_FLOAT_EQ(proc.advance(), 0.75f);
@@ -67,7 +67,7 @@ TEST(ParamToolBoxTest, testParamRampProcessor_noRampValueFromGUIEditor)
 }
 
 //-----------------------------------------------------------------------------
-TEST(ParamToolBoxTest, testParamRampProcessor_oneRamp)
+TEST(ParamToolBoxTest, testRampProcessor_oneRamp)
 {
     constexpr float kInitVal                 = 0.6f;
     static const ParamValueQueue kValueQueue = {{0, kInitVal}, {4, 1.0f}};
@@ -85,7 +85,7 @@ TEST(ParamToolBoxTest, testParamRampProcessor_oneRamp)
         return false;
     };
 
-    ParamRampProcessor proc(cb, kInitVal);
+    RampProcessor proc(cb, kInitVal);
     EXPECT_FLOAT_EQ(proc.getValue(), kInitVal);
     EXPECT_FLOAT_EQ(proc.advance(), 0.7f);
     EXPECT_FLOAT_EQ(proc.advance(), 0.8f);
@@ -95,7 +95,7 @@ TEST(ParamToolBoxTest, testParamRampProcessor_oneRamp)
     EXPECT_EQ(counter, 2);
 }
 //-----------------------------------------------------------------------------
-TEST(ParamToolBoxTest, testParamRampProcessor_twoRamps)
+TEST(ParamToolBoxTest, testRampProcessor_twoRamps)
 {
     constexpr float kInitVal                 = 0.6f;
     static const ParamValueQueue kValueQueue = {{0, kInitVal}, {4, 1.0f}, {9, 0.5f}};
@@ -113,7 +113,7 @@ TEST(ParamToolBoxTest, testParamRampProcessor_twoRamps)
         return false;
     };
 
-    ParamRampProcessor proc(cb, kInitVal);
+    RampProcessor proc(cb, kInitVal);
     EXPECT_FLOAT_EQ(proc.getValue(), kInitVal);
     EXPECT_FLOAT_EQ(proc.advance(), 0.7f);
     EXPECT_FLOAT_EQ(proc.advance(), 0.8f);

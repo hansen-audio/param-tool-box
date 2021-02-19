@@ -1,15 +1,15 @@
 // Copyright(c) 2021 Hansen Audio.
 
-#include "ha/ptb/paramrampprocessor.h"
+#include "ha/param-tool-box/rampprocessor.h"
 #include <algorithm>
 
 namespace HA {
 namespace PTB {
 
 //------------------------------------------------------------------------
-// ParamRampProcessor
+// RampProcessor
 //------------------------------------------------------------------------
-ParamRampProcessor::ParamRampProcessor(ParamValueQueue queue, ValueType init)
+RampProcessor::RampProcessor(ParamValueQueue queue, ValueType init)
 : queue(queue)
 , ramp({init, init, 0})
 , x(init)
@@ -18,7 +18,7 @@ ParamRampProcessor::ParamRampProcessor(ParamValueQueue queue, ValueType init)
 }
 
 //-----------------------------------------------------------------------------
-ParamRampProcessor::ValueType ParamRampProcessor::advance()
+RampProcessor::ValueType RampProcessor::advance()
 {
     if (ramp.isDone(x))
     {
@@ -33,20 +33,20 @@ ParamRampProcessor::ValueType ParamRampProcessor::advance()
 }
 
 //-----------------------------------------------------------------------------
-ParamRampProcessor::ValueType ParamRampProcessor::getValue() const
+RampProcessor::ValueType RampProcessor::getValue() const
 {
     return x;
 }
 
 //-----------------------------------------------------------------------------
-void ParamRampProcessor::updateRamp()
+void RampProcessor::updateRamp()
 {
     currSegment++;
     initRamp(currSegment);
 }
 
 //-----------------------------------------------------------------------------
-void ParamRampProcessor::initRamp(int index)
+void RampProcessor::initRamp(int index)
 {
     int offset0        = 0;
     mut_ValueType val0 = 0.;
@@ -60,12 +60,12 @@ void ParamRampProcessor::initRamp(int index)
     if (!moreRamps)
     {
         x    = val0;
-        ramp = ParamRamp(val0, val0, 0);
+        ramp = Ramp(val0, val0, 0);
         return;
     }
 
     const int duration = (offset1 - offset0);
-    ramp               = ParamRamp(val0, val1, duration);
+    ramp               = Ramp(val0, val1, duration);
 }
 
 //-----------------------------------------------------------------------------

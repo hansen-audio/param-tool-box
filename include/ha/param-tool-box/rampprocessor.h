@@ -2,26 +2,26 @@
 
 #pragma once
 
-#include "paramramp.h"
+#include "ramp.h"
 #include <functional>
 
 namespace HA {
 namespace PTB {
 
 //------------------------------------------------------------------------
-// ParamRampProcessor
+// RampProcessor
 //------------------------------------------------------------------------
-class ParamRampProcessor
+class RampProcessor
 {
 public:
     //--------------------------------------------------------------------
-    using ValueType     = ParamRamp::ValueType;
-    using mut_ValueType = ParamRamp::mut_ValueType;
+    using ValueType     = Ramp::ValueType;
+    using mut_ValueType = Ramp::mut_ValueType;
 
     using ParamValueQueue =
         std::function<bool(int /*index*/, int& /*offset*/, mut_ValueType& /*value*/)>;
 
-    ParamRampProcessor(ParamValueQueue queue, ValueType init);
+    RampProcessor(ParamValueQueue queue, ValueType init);
     ValueType advance();
     ValueType getValue() const;
 
@@ -30,7 +30,7 @@ private:
     void updateRamp();
     void initRamp(int index);
 
-    ParamRamp ramp;
+    Ramp ramp;
     ParamValueQueue queue = nullptr;
     int currSegment       = 0;
     bool moreRamps        = true;

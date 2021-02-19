@@ -6,16 +6,16 @@ namespace HA {
 namespace PTB {
 
 //------------------------------------------------------------------------
-//  ParamRamp
+//  Ramp
 //------------------------------------------------------------------------
-class ParamRamp final
+class Ramp final
 {
 public:
     //------------------------------------------------------------------------
     using ValueType     = const float;
     using mut_ValueType = float;
 
-    ParamRamp(ValueType src, ValueType dst, int _numSamples);
+    Ramp(ValueType src, ValueType dst, int _numSamples);
     ValueType advance(ValueType x);
     bool isDone(ValueType x) const;
 

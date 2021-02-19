@@ -9,10 +9,10 @@ project(ha-param-tool-box)
 add_subdirectory(external)
 
 add_library(param-tool-box STATIC  
-    include/ha/ptb/paramrampprocessor.h
-    include/ha/ptb/paramramp.h
-    source/paramramp.cpp
-    source/paramrampprocessor.cpp
+    include/ha/param-tool-box/rampprocessor.h
+    include/ha/param-tool-box/ramp.h
+    source/ramp.cpp
+    source/rampprocessor.cpp
 )
 
 target_include_directories(param-tool-box
@@ -25,7 +25,7 @@ target_include_directories(param-tool-box
 enable_testing()
 
 add_executable(param-tool-box_test
-    test/paramrampprocessor_test.cpp
+    test/rampprocessor_test.cpp
 )
 
 target_link_libraries(param-tool-box_test
