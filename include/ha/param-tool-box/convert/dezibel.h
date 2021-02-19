@@ -28,7 +28,7 @@ std::string to_string_with_precision(const T a_value, const int n = 6)
 //-----------------------------------------------------------------------------
 // Dezibel
 //-----------------------------------------------------------------------------
-template <class RealType, int tPrecision>
+template <typename RealType, int tPrecision>
 class Dezibel
 {
 public:
