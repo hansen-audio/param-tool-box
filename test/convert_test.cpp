@@ -11,7 +11,8 @@ using namespace HA::PTB;
 namespace {
 
 //-----------------------------------------------------------------------------
-static const Convert::Dezibel dB_converter(-96., 0., 2);
+using fDezibel = Convert::Dezibel<float>;
+static const fDezibel dB_converter(-96., 0.);
 
 //-----------------------------------------------------------------------------
 TEST(ParamToolBoxTest, testRampProcessor_convertNormToDezibel)
@@ -36,6 +37,14 @@ TEST(ParamToolBoxTest, testRampProcessor_convertStringToPhysical)
     EXPECT_EQ(dB_converter.fromString("-6"), -6.);
     EXPECT_EQ(dB_converter.fromString("-95"), -95.);
     EXPECT_EQ(dB_converter.fromString("-inf"), -96);
+}
+
+//-----------------------------------------------------------------------------
+TEST(ParamToolBoxTest, testRampProcessor_toStringPrecision)
+{
+    const auto precisionFunc = [](fDezibel::RealType physical) { return physical > -10 ? 2 : 1; };
+    EXPECT_EQ(dB_converter.toString(-6.54, precisionFunc), "-6.54");
+    EXPECT_EQ(dB_converter.toString(-23.45, precisionFunc), "-23.5");
 }
 
 //-----------------------------------------------------------------------------

@@ -3,6 +3,7 @@
 #pragma once
 
 #include <algorithm>
+#include <functional>
 #include <math.h>
 #include <sstream>
 #include <string>
@@ -33,13 +34,15 @@ class Dezibel
 {
 public:
     //-------------------------------------------------------------------------
-    using StringType = const std::string;
-    using RealType   = tRealType;
+    using StringType    = const std::string;
+    using RealType      = tRealType;
+    using PrecisionFunc = std::function<int(RealType)>;
 
-    Dezibel(RealType min, RealType max, int precision)
+    static const int kStandardPrecision = 2;
+
+    Dezibel(RealType min, RealType max)
     : kMin(min)
     , kMax(max)
-    , precision(precision)
     {
     }
 
@@ -69,8 +72,12 @@ public:
         return pow(RealType(10.), RealType(1.) / RealType(20.) * physical);
     }
 
-    StringType toString(RealType physical) const
+    StringType toString(RealType physical, const PrecisionFunc& func = nullptr) const
     {
+        int precision = kStandardPrecision;
+        if (func)
+            precision = func(physical);
+
         return physical <= kMin ? "-inf" : to_string_with_precision(physical, precision);
     }
 
@@ -84,7 +91,6 @@ public:
 private:
     RealType kMin = -96.;
     RealType kMax = 0.;
-    int precision = 1;
 };
 
 //-----------------------------------------------------------------------------
