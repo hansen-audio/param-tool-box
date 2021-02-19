@@ -2,13 +2,14 @@ cmake_minimum_required(VERSION 3.14.0)
 
 include(FetchContent)
 
-set(CMAKE_CXX_STANDARD 14)
+set(CMAKE_CXX_STANDARD 17)
 
 project(ha-param-tool-box)
 
 add_subdirectory(external)
 
-add_library(param-tool-box STATIC  
+add_library(param-tool-box STATIC
+    include/ha/param-tool-box/convert/dezibel.h
     include/ha/param-tool-box/process/rampprocessor.h
     include/ha/param-tool-box/process/ramp.h
     source/ramp.cpp
@@ -25,6 +26,7 @@ target_include_directories(param-tool-box
 enable_testing()
 
 add_executable(param-tool-box_test
+    test/convert_test.cpp
     test/rampprocessor_test.cpp
 )
 
