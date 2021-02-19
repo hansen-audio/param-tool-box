@@ -34,6 +34,7 @@ private:
     ParamValueQueue queue = nullptr;
     int currSegment       = 0;
     bool moreRamps        = true;
+    mut_ValueType x       = 0.f;
 };
 
 //-----------------------------------------------------------------------------

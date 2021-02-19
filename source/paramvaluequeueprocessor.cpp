@@ -12,6 +12,7 @@ namespace PTB {
 ParamValueQueueProcessor::ParamValueQueueProcessor(ParamValueQueue queue, ValueType init)
 : queue(queue)
 , ramp({init, init, 0})
+, x(init)
 {
     initRamp(0);
 }
@@ -19,21 +20,22 @@ ParamValueQueueProcessor::ParamValueQueueProcessor(ParamValueQueue queue, ValueT
 //-----------------------------------------------------------------------------
 ParamValueQueueProcessor::ValueType ParamValueQueueProcessor::tick()
 {
-    if (!moreRamps)
-        return ramp.getValue();
-
-    if (ramp.isDone())
+    if (ramp.isDone(x))
     {
+        if (!moreRamps)
+            return x;
+
         updateRamp();
     }
 
-    return ramp.tick();
+    x = ramp.advance(x);
+    return x;
 }
 
 //-----------------------------------------------------------------------------
 ParamValueQueueProcessor::ValueType ParamValueQueueProcessor::getValue() const
 {
-    return ramp.getValue();
+    return x;
 }
 
 //-----------------------------------------------------------------------------
@@ -57,6 +59,7 @@ void ParamValueQueueProcessor::initRamp(int index)
     moreRamps          = queue(index, offset1, val1);
     if (!moreRamps)
     {
+        x    = val0;
         ramp = ParamRamp(val0, val0, 0);
         return;
     }

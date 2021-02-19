@@ -16,15 +16,14 @@ public:
     using mut_ValueType = float;
 
     ParamRamp(ValueType src, ValueType dst, int _numSamples);
-    ValueType tick();
-    ValueType getValue() const { return x; };
-    bool isDone() const;
+    ValueType advance(ValueType x);
+    bool isDone(ValueType x) const;
 
     //------------------------------------------------------------------------
 private:
-    mut_ValueType dst   = 0.;
-    mut_ValueType delta = 0.1;
-    mut_ValueType x     = 0.;
+    mut_ValueType src   = 0.f;
+    mut_ValueType dst   = 0.f;
+    mut_ValueType delta = 0.1f;
     int numSamples      = 32;
 };
 

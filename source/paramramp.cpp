@@ -36,23 +36,22 @@ namespace PTB {
 // ParamRamp
 //-----------------------------------------------------------------------------
 ParamRamp::ParamRamp(ValueType src, ValueType dst, int _numSamples)
-: x(src)
+: src(src)
 , dst(dst)
 , numSamples(_numSamples)
 {
     numSamples = numSamples == 0 ? 1 : numSamples;
-    delta      = calcDelta(x, dst, numSamples);
+    delta      = calcDelta(src, dst, numSamples);
 }
 
 //-----------------------------------------------------------------------------
-ParamRamp::ValueType ParamRamp::tick()
+ParamRamp::ValueType ParamRamp::advance(ValueType x)
 {
-    x = dezip(x, delta, dst);
-    return x;
+    return dezip(x, delta, dst);
 }
 
 //-----------------------------------------------------------------------------
-bool ParamRamp::isDone() const
+bool ParamRamp::isDone(ValueType x) const
 {
     return x == dst;
 }
