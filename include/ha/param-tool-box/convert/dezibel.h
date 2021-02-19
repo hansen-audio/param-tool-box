@@ -28,23 +28,27 @@ std::string to_string_with_precision(const T a_value, const int n = 6)
 //-----------------------------------------------------------------------------
 // Dezibel
 //-----------------------------------------------------------------------------
-template <typename RealType, int tPrecision>
+template <typename tRealType>
 class Dezibel
 {
 public:
     //-------------------------------------------------------------------------
-    static constexpr RealType kMin     = -96.;
-    static constexpr RealType kMax     = 0.;
-    static constexpr RealType kBase    = 10.;
-    static constexpr RealType kExp     = (RealType(1.) / RealType(20.)) * kMin;
-    static constexpr RealType kNormMin = pow(kBase, kExp);
+    using StringType = const std::string;
+    using RealType   = tRealType;
 
-    using StringType = std::string;
-
-    Dezibel() {}
+    Dezibel(RealType min, RealType max, int precision)
+    : kMin(min)
+    , kMax(max)
+    , precision(precision)
+    {
+    }
 
     RealType toPhysical(RealType normalized) const
     {
+        static constexpr RealType kBase = 10.;
+        static const RealType kExp      = (RealType(1.) / RealType(20.)) * kMin;
+        static const RealType kNormMin  = pow(kBase, kExp);
+
 #if __cplusplus < 201700
         normalized = std::max(normalized, kNormMin);
         normalized = std::min(normalized, RealType(1));
@@ -67,17 +71,20 @@ public:
 
     StringType toString(RealType physical) const
     {
-        return physical <= kMin ? "-oo" : to_string_with_precision(physical, tPrecision);
+        return physical <= kMin ? "-inf" : to_string_with_precision(physical, precision);
     }
 
     RealType fromString(const StringType& string) const
     {
-        auto value = string == "-oo" ? RealType(kMin) : std::stof(string);
+        auto value = string == "-inf" ? RealType(kMin) : std::stof(string);
         return value;
     }
 
     //-------------------------------------------------------------------------
 private:
+    RealType kMin = -96.;
+    RealType kMax = 0.;
+    int precision = 1;
 };
 
 //-----------------------------------------------------------------------------
