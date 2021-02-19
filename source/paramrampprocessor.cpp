@@ -1,15 +1,15 @@
 // Copyright(c) 2021 Hansen Audio.
 
-#include "ha/ptb/paramvaluequeueprocessor.h"
+#include "ha/ptb/paramrampprocessor.h"
 #include <algorithm>
 
 namespace HA {
 namespace PTB {
 
 //------------------------------------------------------------------------
-// ParamValueQueueProcessor
+// ParamRampProcessor
 //------------------------------------------------------------------------
-ParamValueQueueProcessor::ParamValueQueueProcessor(ParamValueQueue queue, ValueType init)
+ParamRampProcessor::ParamRampProcessor(ParamValueQueue queue, ValueType init)
 : queue(queue)
 , ramp({init, init, 0})
 , x(init)
@@ -18,7 +18,7 @@ ParamValueQueueProcessor::ParamValueQueueProcessor(ParamValueQueue queue, ValueT
 }
 
 //-----------------------------------------------------------------------------
-ParamValueQueueProcessor::ValueType ParamValueQueueProcessor::tick()
+ParamRampProcessor::ValueType ParamRampProcessor::tick()
 {
     if (ramp.isDone(x))
     {
@@ -33,20 +33,20 @@ ParamValueQueueProcessor::ValueType ParamValueQueueProcessor::tick()
 }
 
 //-----------------------------------------------------------------------------
-ParamValueQueueProcessor::ValueType ParamValueQueueProcessor::getValue() const
+ParamRampProcessor::ValueType ParamRampProcessor::getValue() const
 {
     return x;
 }
 
 //-----------------------------------------------------------------------------
-void ParamValueQueueProcessor::updateRamp()
+void ParamRampProcessor::updateRamp()
 {
     currSegment++;
     initRamp(currSegment);
 }
 
 //-----------------------------------------------------------------------------
-void ParamValueQueueProcessor::initRamp(int index)
+void ParamRampProcessor::initRamp(int index)
 {
     int offset0        = 0;
     mut_ValueType val0 = 0.;

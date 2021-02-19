@@ -9,10 +9,10 @@ project(ha-param-tool-box)
 add_subdirectory(external)
 
 add_library(param-tool-box STATIC  
-    include/ha/ptb/paramvaluequeueprocessor.h
+    include/ha/ptb/paramrampprocessor.h
     include/ha/ptb/paramramp.h
     source/paramramp.cpp
-    source/paramvaluequeueprocessor.cpp
+    source/paramrampprocessor.cpp
 )
 
 target_include_directories(param-tool-box
@@ -25,7 +25,7 @@ target_include_directories(param-tool-box
 enable_testing()
 
 add_executable(param-tool-box_test
-    test/paramvaluequeueprocessor_test.cpp
+    test/paramrampprocessor_test.cpp
 )
 
 target_link_libraries(param-tool-box_test

@@ -9,9 +9,9 @@ namespace HA {
 namespace PTB {
 
 //------------------------------------------------------------------------
-// ParamValueQueueProcessor
+// ParamRampProcessor
 //------------------------------------------------------------------------
-class ParamValueQueueProcessor
+class ParamRampProcessor
 {
 public:
     //--------------------------------------------------------------------
@@ -21,7 +21,7 @@ public:
     using ParamValueQueue =
         std::function<bool(int /*index*/, int& /*offset*/, mut_ValueType& /*value*/)>;
 
-    ParamValueQueueProcessor(ParamValueQueue queue, ValueType init);
+    ParamRampProcessor(ParamValueQueue queue, ValueType init);
     ValueType tick();
     ValueType getValue() const;
 
