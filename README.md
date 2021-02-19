@@ -27,7 +27,7 @@ The ```PTB::ParamRampProcessor``` can take a list of automation curve points and
 In order to use it with ```Vst::IParamValueQueue```, do as follows:
 
 ```
-PTB::ParamRampProcessor createPVQP(Vst::IParamValueQueue* queue, float initValue)
+PTB::ParamRampProcessor createPRP(Vst::IParamValueQueue* queue, float initValue)
 {
     // Create lambda for Vst::IParamValueQueue ...
     const auto pvqp = [queue](int index, int& offset, PTB::ParamRampProcessor::mut_ValueType& value) {
@@ -58,7 +58,7 @@ Steinberg::tresult MyPlugin::process(Vst::ProcessData& data)
     IParamValueQueue* myParamQueue = ...
 
     // Create a stack object of PTB::ParamRampProcessor
-    PTB::ParamRampProcessor myParamProcessor = createPVQP(myParamQueue, m_lastValue);
+    PTB::ParamRampProcessor myParamProcessor = createPRP(myParamQueue, m_lastValue);
 
     for(...)
     {
