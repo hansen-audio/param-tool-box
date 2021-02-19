@@ -20,7 +20,7 @@ cmake --build .
 
 ## Using the tools and examples
 
-### Parameter value queue processor
+### Parameter ramp processor
 
 The ```PTB::ParamRampProcessor``` can take a list of automation curve points and interpolate between them. This allows sample accurate automation curve processing. By providing it a lambda function to retrieve the automation curve points, the class is not bound to any list implementation.
 
@@ -37,9 +37,11 @@ PTB::ParamRampProcessor createPRP(Vst::IParamValueQueue* queue, float initValue)
         if (index < queue->getPointCount())
         {
             Vst::ParamValue tmpValue = 0.;
-            if (queue->getPoint(index, offset, tmpValue) != kResultOk)
+            int32 offset    tmpOffset = 0;
+            if (queue->getPoint(index, tmpOffset, tmpValue) != kResultOk)
                 return false;
 
+            offset = tmpOffset;
             value = tmpValue;
             return true;
         }
@@ -64,7 +66,7 @@ Steinberg::tresult MyPlugin::process(Vst::ProcessData& data)
     {
         (*output)++ = (*input)++ * myParamProcessor.getValue();
 
-        myParamProcessor.tick();
+        myParamProcessor.advance();
     }
 }
 ```
