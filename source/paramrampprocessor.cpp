@@ -18,7 +18,7 @@ ParamRampProcessor::ParamRampProcessor(ParamValueQueue queue, ValueType init)
 }
 
 //-----------------------------------------------------------------------------
-ParamRampProcessor::ValueType ParamRampProcessor::tick()
+ParamRampProcessor::ValueType ParamRampProcessor::advance()
 {
     if (ramp.isDone(x))
     {

@@ -32,9 +32,9 @@ TEST(ParamToolBoxTest, testParamRampProcessor_invalidQueue)
 
     ParamRampProcessor proc(cb, kInitVal);
     EXPECT_FLOAT_EQ(proc.getValue(), kInitVal);
-    EXPECT_FLOAT_EQ(proc.tick(), kInitVal);
-    EXPECT_FLOAT_EQ(proc.tick(), kInitVal);
-    EXPECT_FLOAT_EQ(proc.tick(), kInitVal);
+    EXPECT_FLOAT_EQ(proc.advance(), kInitVal);
+    EXPECT_FLOAT_EQ(proc.advance(), kInitVal);
+    EXPECT_FLOAT_EQ(proc.advance(), kInitVal);
     EXPECT_EQ(counter, 1);
 }
 
@@ -59,10 +59,10 @@ TEST(ParamToolBoxTest, testParamRampProcessor_noRampValueFromGUIEditor)
 
     ParamRampProcessor proc(cb, kInitVal);
     EXPECT_FLOAT_EQ(proc.getValue(), 0.75f);
-    EXPECT_FLOAT_EQ(proc.tick(), 0.75f);
-    EXPECT_FLOAT_EQ(proc.tick(), 0.75f);
-    EXPECT_FLOAT_EQ(proc.tick(), 0.75f);
-    EXPECT_FLOAT_EQ(proc.tick(), 0.75f);
+    EXPECT_FLOAT_EQ(proc.advance(), 0.75f);
+    EXPECT_FLOAT_EQ(proc.advance(), 0.75f);
+    EXPECT_FLOAT_EQ(proc.advance(), 0.75f);
+    EXPECT_FLOAT_EQ(proc.advance(), 0.75f);
     EXPECT_EQ(counter, 2);
 }
 
@@ -87,10 +87,10 @@ TEST(ParamToolBoxTest, testParamRampProcessor_oneRamp)
 
     ParamRampProcessor proc(cb, kInitVal);
     EXPECT_FLOAT_EQ(proc.getValue(), kInitVal);
-    EXPECT_FLOAT_EQ(proc.tick(), 0.7f);
-    EXPECT_FLOAT_EQ(proc.tick(), 0.8f);
-    EXPECT_FLOAT_EQ(proc.tick(), 0.9f);
-    EXPECT_FLOAT_EQ(proc.tick(), 1.0f);
+    EXPECT_FLOAT_EQ(proc.advance(), 0.7f);
+    EXPECT_FLOAT_EQ(proc.advance(), 0.8f);
+    EXPECT_FLOAT_EQ(proc.advance(), 0.9f);
+    EXPECT_FLOAT_EQ(proc.advance(), 1.0f);
 
     EXPECT_EQ(counter, 2);
 }
@@ -115,21 +115,21 @@ TEST(ParamToolBoxTest, testParamRampProcessor_twoRamps)
 
     ParamRampProcessor proc(cb, kInitVal);
     EXPECT_FLOAT_EQ(proc.getValue(), kInitVal);
-    EXPECT_FLOAT_EQ(proc.tick(), 0.7f);
-    EXPECT_FLOAT_EQ(proc.tick(), 0.8f);
-    EXPECT_FLOAT_EQ(proc.tick(), 0.9f);
-    EXPECT_FLOAT_EQ(proc.tick(), 1.0f);
+    EXPECT_FLOAT_EQ(proc.advance(), 0.7f);
+    EXPECT_FLOAT_EQ(proc.advance(), 0.8f);
+    EXPECT_FLOAT_EQ(proc.advance(), 0.9f);
+    EXPECT_FLOAT_EQ(proc.advance(), 1.0f);
 
     EXPECT_FLOAT_EQ(proc.getValue(), 1.0f);
-    EXPECT_FLOAT_EQ(proc.tick(), 0.9f);
-    EXPECT_FLOAT_EQ(proc.tick(), 0.8f);
-    EXPECT_FLOAT_EQ(proc.tick(), 0.7f);
-    EXPECT_FLOAT_EQ(proc.tick(), 0.6f);
-    EXPECT_FLOAT_EQ(proc.tick(), 0.5f);
+    EXPECT_FLOAT_EQ(proc.advance(), 0.9f);
+    EXPECT_FLOAT_EQ(proc.advance(), 0.8f);
+    EXPECT_FLOAT_EQ(proc.advance(), 0.7f);
+    EXPECT_FLOAT_EQ(proc.advance(), 0.6f);
+    EXPECT_FLOAT_EQ(proc.advance(), 0.5f);
 
-    EXPECT_FLOAT_EQ(proc.tick(), 0.5f);
-    EXPECT_FLOAT_EQ(proc.tick(), 0.5f);
-    EXPECT_FLOAT_EQ(proc.tick(), 0.5f);
+    EXPECT_FLOAT_EQ(proc.advance(), 0.5f);
+    EXPECT_FLOAT_EQ(proc.advance(), 0.5f);
+    EXPECT_FLOAT_EQ(proc.advance(), 0.5f);
 
     EXPECT_EQ(counter, 6);
 }

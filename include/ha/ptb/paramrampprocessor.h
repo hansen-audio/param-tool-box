@@ -22,7 +22,7 @@ public:
         std::function<bool(int /*index*/, int& /*offset*/, mut_ValueType& /*value*/)>;
 
     ParamRampProcessor(ParamValueQueue queue, ValueType init);
-    ValueType tick();
+    ValueType advance();
     ValueType getValue() const;
 
     //--------------------------------------------------------------------
