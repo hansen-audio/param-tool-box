@@ -1,5 +1,7 @@
 // Copyright(c) 2021 Hansen Audio.
 
+#pragma once
+
 #include <algorithm>
 #include <math.h>
 #include <sstream>
