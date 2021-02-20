@@ -83,7 +83,9 @@ public:
 
     value_type fromString(const StringType& string) const
     {
-        auto value = string == "-inf" ? value_type(kMin) : value_type(std::stod(string));
+        // TODO: Make this more robust to non-digit inputs.
+        const value_type value =
+            string == "-inf" ? value_type(kMin) : value_type(std::stod(string));
         return value;
     }
 
