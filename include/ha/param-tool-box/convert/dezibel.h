@@ -35,33 +35,33 @@ class Dezibel
 public:
     //-------------------------------------------------------------------------
     using StringType    = const std::string;
-    using RealType      = tRealType;
-    using PrecisionFunc = std::function<int(RealType)>;
+    using value_type    = tRealType;
+    using PrecisionFunc = std::function<int(value_type)>;
 
     static const int kStandardPrecision = 2;
 
-    Dezibel(RealType min, RealType max)
+    Dezibel(value_type min, value_type max)
     : kMin(min)
     , kMax(max)
     {
     }
 
-    RealType toPhysical(RealType normalized) const
+    value_type toPhysical(value_type normalized) const
     {
-        static constexpr RealType kBase = 10.;
-        static const RealType kExp      = (RealType(1.) / RealType(20.)) * kMin;
-        static const RealType kNormMin  = pow(kBase, kExp);
+        static constexpr value_type kBase = 10.;
+        static const value_type kExp      = (value_type(1.) / value_type(20.)) * kMin;
+        static const value_type kNormMin  = pow(kBase, kExp);
 
 #if __cplusplus < 201700
         normalized = std::max(normalized, kNormMin);
-        normalized = std::min(normalized, RealType(1));
+        normalized = std::min(normalized, value_type(1));
 #else
-        normalized = std::clamp(normalized, kNormMin, RealType(1));
+        normalized = std::clamp(normalized, kNormMin, value_type(1.));
 #endif
-        return RealType(20.) * log(normalized) / log(RealType(10.));
+        return value_type(20.) * log(normalized) / log(value_type(10.));
     }
 
-    RealType toNormalized(RealType physical) const
+    value_type toNormalized(value_type physical) const
     {
 #if __cplusplus < 201700
         physical = std::max(physical, kMin);
@@ -69,10 +69,10 @@ public:
 #else
         physical   = std::clamp(physical, kMin, kMax);
 #endif
-        return pow(RealType(10.), RealType(1.) / RealType(20.) * physical);
+        return pow(value_type(10.), value_type(1.) / value_type(20.) * physical);
     }
 
-    StringType toString(RealType physical, const PrecisionFunc& func = nullptr) const
+    StringType toString(value_type physical, const PrecisionFunc& func = nullptr) const
     {
         int precision = kStandardPrecision;
         if (func)
@@ -81,16 +81,16 @@ public:
         return physical <= kMin ? "-inf" : to_string_with_precision(physical, precision);
     }
 
-    RealType fromString(const StringType& string) const
+    value_type fromString(const StringType& string) const
     {
-        auto value = string == "-inf" ? RealType(kMin) : std::stof(string);
+        auto value = string == "-inf" ? value_type(kMin) : value_type(std::stod(string));
         return value;
     }
 
     //-------------------------------------------------------------------------
 private:
-    RealType kMin = -96.;
-    RealType kMax = 0.;
+    value_type kMin = -96.;
+    value_type kMax = 0.;
 };
 
 //-----------------------------------------------------------------------------

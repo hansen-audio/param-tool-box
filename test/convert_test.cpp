@@ -42,7 +42,7 @@ TEST(ParamToolBoxTest, testRampProcessor_convertStringToPhysical)
 //-----------------------------------------------------------------------------
 TEST(ParamToolBoxTest, testRampProcessor_toStringPrecision)
 {
-    const auto precisionFunc = [](fDezibel::RealType physical) { return physical > -10 ? 2 : 1; };
+    const auto precisionFunc = [](fDezibel::value_type physical) { return physical > -10 ? 2 : 1; };
     EXPECT_EQ(dB_converter.toString(-6.54, precisionFunc), "-6.54");
     EXPECT_EQ(dB_converter.toString(-23.45, precisionFunc), "-23.5");
 }
