@@ -10,10 +10,10 @@ add_subdirectory(external)
 
 add_library(param-tool-box STATIC
     include/ha/param-tool-box/convert/dezibel.h
-    include/ha/param-tool-box/process/rampprocessor.h
+    include/ha/param-tool-box/process/ramp_processor.h
     include/ha/param-tool-box/process/ramp.h
     source/ramp.cpp
-    source/rampprocessor.cpp
+    source/ramp_processor.cpp
 )
 
 target_include_directories(param-tool-box
@@ -27,7 +27,7 @@ enable_testing()
 
 add_executable(param-tool-box_test
     test/convert_test.cpp
-    test/rampprocessor_test.cpp
+    test/ramp_processor_test.cpp
 )
 
 target_link_libraries(param-tool-box_test
