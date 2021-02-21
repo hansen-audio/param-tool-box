@@ -85,7 +85,7 @@ public:
     {
         // TODO: Make this more robust to non-digit inputs.
         value_type const value =
-            value_string == "-inf" ? value_type(min_dB) : value_type(std::stod(string));
+            value_string == "-inf" ? value_type(min_dB) : value_type(std::stod(value_string));
         return value;
     }
 
