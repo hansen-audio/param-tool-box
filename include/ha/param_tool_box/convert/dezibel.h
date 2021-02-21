@@ -34,9 +34,9 @@ class Dezibel final
 {
 public:
     //-------------------------------------------------------------------------
-    using StringType    = const std::string;
-    using value_type    = tRealType;
-    using PrecisionFunc = std::function<int(value_type)>;
+    using string_type  = const std::string;
+    using value_type   = tRealType;
+    using fn_precision = std::function<int(value_type)>;
 
     static const int kStandardPrecision = 2;
 
@@ -72,16 +72,16 @@ public:
         return pow(value_type(10.), value_type(1.) / value_type(20.) * physical);
     }
 
-    StringType toString(value_type physical, const PrecisionFunc& func = nullptr) const
+    string_type toString(value_type physical, const fn_precision& precision_func = nullptr) const
     {
         int precision = kStandardPrecision;
-        if (func)
-            precision = func(physical);
+        if (precision_func)
+            precision = precision_func(physical);
 
         return physical <= min_dB ? "-inf" : to_string_with_precision(physical, precision);
     }
 
-    value_type fromString(const StringType& string) const
+    value_type fromString(const string_type& string) const
     {
         // TODO: Make this more robust to non-digit inputs.
         const value_type value =
