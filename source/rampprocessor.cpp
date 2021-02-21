@@ -9,8 +9,8 @@ namespace PTB {
 //------------------------------------------------------------------------
 // RampProcessor
 //------------------------------------------------------------------------
-RampProcessor::RampProcessor(ParamValueQueue queue, ValueType init)
-: queue(queue)
+RampProcessor::RampProcessor(FuncParamValueQueue queueFunc, ValueType init)
+: queueFunc(std::move(queueFunc))
 , ramp({init, init, 0})
 , x(init)
 {
@@ -50,13 +50,13 @@ void RampProcessor::initRamp(int index)
 {
     int offset0        = 0;
     mut_ValueType val0 = 0.;
-    moreRamps          = queue(index++, offset0, val0);
+    moreRamps          = queueFunc ? queueFunc(index++, offset0, val0) : false;
     if (!moreRamps)
         return;
 
     int offset1        = 0;
     mut_ValueType val1 = 0.;
-    moreRamps          = queue(index, offset1, val1);
+    moreRamps          = queueFunc(index, offset1, val1);
     if (!moreRamps)
     {
         x    = val0;
