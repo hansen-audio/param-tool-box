@@ -36,10 +36,10 @@ namespace ptb {
 //-----------------------------------------------------------------------------
 // Ramp
 //-----------------------------------------------------------------------------
-Ramp::Ramp(value_type src, value_type dst, int numSamples)
+Ramp::Ramp(value_type src, value_type dst, int num_samples)
 : src(src)
 , dst(dst)
-, delta(calcDelta(src, dst, std::max(numSamples, 1)))
+, delta(calcDelta(src, dst, std::max(num_samples, 1)))
 {
     // _numSamples > 0 to prevent division by zero.
 }

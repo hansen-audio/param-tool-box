@@ -9,8 +9,8 @@ namespace ptb {
 //------------------------------------------------------------------------
 // RampProcessor
 //------------------------------------------------------------------------
-RampProcessor::RampProcessor(FuncParamValueQueue queueFunc, value_type init)
-: queueFunc(std::move(queueFunc))
+RampProcessor::RampProcessor(fn_value_queue queueFunc, value_type init)
+: queue_func(std::move(queueFunc))
 , ramp({init, init, 0})
 , x(init)
 {
@@ -22,7 +22,7 @@ RampProcessor::value_type RampProcessor::advance()
 {
     if (ramp.isDone(x))
     {
-        if (!moreRamps)
+        if (!more_ramps)
             return x;
 
         updateRamp();
@@ -41,8 +41,8 @@ RampProcessor::value_type RampProcessor::getValue() const
 //-----------------------------------------------------------------------------
 void RampProcessor::updateRamp()
 {
-    currSegment++;
-    initRamp(currSegment);
+    current_segment++;
+    initRamp(current_segment);
 }
 
 //-----------------------------------------------------------------------------
@@ -50,21 +50,21 @@ void RampProcessor::initRamp(int index)
 {
     int offset0         = 0;
     mut_value_type val0 = 0.;
-    moreRamps           = queueFunc ? queueFunc(index++, offset0, val0) : false;
-    if (!moreRamps)
+    more_ramps          = queue_func ? queue_func(index++, offset0, val0) : false;
+    if (!more_ramps)
         return;
 
     int offset1         = 0;
     mut_value_type val1 = 0.;
-    moreRamps           = queueFunc(index, offset1, val1);
-    if (!moreRamps)
+    more_ramps          = queue_func(index, offset1, val1);
+    if (!more_ramps)
     {
         x    = val0;
         ramp = Ramp(val0, val0, 0);
         return;
     }
 
-    const int duration = (offset1 - offset0);
+    int const duration = (offset1 - offset0);
     ramp               = Ramp(val0, val1, duration);
 }
 

@@ -41,7 +41,7 @@ TEST(ParamToolBoxTest, testRampProcessor_invalidQueue)
 //-----------------------------------------------------------------------------
 TEST(ParamToolBoxTest, testRampProcessor_noRampValueFromGUIEditor)
 {
-    static const ParamValueQueue kValueQueue = {{0, 0.75f}};
+    static ParamValueQueue const kValueQueue = {{0, 0.75f}};
     constexpr float kInitVal                 = 0.5f;
     int counter                              = 0;
     auto cb = [&counter](int index, int& offset, mut_value_type& value) -> bool {
@@ -70,7 +70,7 @@ TEST(ParamToolBoxTest, testRampProcessor_noRampValueFromGUIEditor)
 TEST(ParamToolBoxTest, testRampProcessor_oneRamp)
 {
     constexpr float kInitVal                 = 0.6f;
-    static const ParamValueQueue kValueQueue = {{0, kInitVal}, {4, 1.0f}};
+    static ParamValueQueue const kValueQueue = {{0, kInitVal}, {4, 1.0f}};
     int counter                              = 0;
     auto cb = [&counter](int index, int& offset, mut_value_type& value) -> bool {
         ++counter;
@@ -98,7 +98,7 @@ TEST(ParamToolBoxTest, testRampProcessor_oneRamp)
 TEST(ParamToolBoxTest, testRampProcessor_twoRamps)
 {
     constexpr float kInitVal                 = 0.6f;
-    static const ParamValueQueue kValueQueue = {{0, kInitVal}, {4, 1.0f}, {9, 0.5f}};
+    static ParamValueQueue const kValueQueue = {{0, kInitVal}, {4, 1.0f}, {9, 0.5f}};
     int counter                              = 0;
     auto cb = [&counter](int index, int& offset, mut_value_type& value) -> bool {
         ++counter;

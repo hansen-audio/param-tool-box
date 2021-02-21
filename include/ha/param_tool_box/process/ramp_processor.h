@@ -19,10 +19,10 @@ public:
     using value_type     = Ramp::value_type;
     using mut_value_type = Ramp::mut_value_type;
 
-    using FuncParamValueQueue =
+    using fn_value_queue =
         std::function<bool(int /*index*/, int& /*offset*/, mut_value_type& /*value*/)>;
 
-    RampProcessor(FuncParamValueQueue queue, value_type init);
+    RampProcessor(fn_value_queue queue, value_type init);
     value_type advance();
     value_type getValue() const;
 
@@ -32,10 +32,10 @@ private:
     void initRamp(int index);
 
     Ramp ramp;
-    FuncParamValueQueue queueFunc = nullptr;
-    int currSegment               = 0;
-    bool moreRamps                = true;
-    mut_value_type x              = 0.f;
+    fn_value_queue queue_func = nullptr;
+    int current_segment       = 0;
+    bool more_ramps           = true;
+    mut_value_type x          = 0.f;
 };
 
 //-----------------------------------------------------------------------------

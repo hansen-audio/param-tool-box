@@ -10,7 +10,7 @@ namespace {
 
 //-----------------------------------------------------------------------------
 using fDezibel = ha::ptb::convert::Dezibel<float>;
-static const fDezibel dB_converter(-96., 0.);
+static fDezibel const dB_converter(-96., 0.);
 
 //-----------------------------------------------------------------------------
 TEST(ParamToolBoxTest, testRampProcessor_convertNormToDezibel)
