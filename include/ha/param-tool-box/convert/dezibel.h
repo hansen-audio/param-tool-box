@@ -64,7 +64,7 @@ public:
     value_type toNormalized(value_type physical) const
     {
 #if __cplusplus < 201700
-        physical = std::max(physical, kMin);
+        physical = std::max(physical, min_dB);
         physical = std::min(physical, max_dB);
 #else
         physical   = std::clamp(physical, min_dB, max_dB);
