@@ -25,7 +25,7 @@ std::string to_string_with_precision(T const a_value, int const n = 6)
 
 //-----------------------------------------------------------------------------
 template <class T>
-constexpr const T& clamp(const T& v, const T& lo, const T& hi)
+constexpr T const& clamp(T const& v, T const& lo, T const& hi)
 {
 #if __cplusplus < 201700
     T const tmp_v = std::max(v, lo);
