@@ -64,8 +64,6 @@ public:
         static value_type const kExp     = kReciprocal20 * min_dB;
         static value_type const kNormMin = pow(kBase, kExp);
 
-        normalized = std::max(normalized, kNormMin);
-        normalized = std::min(normalized, value_type(1));
         normalized = clamp(normalized, kNormMin, value_type(1.));
 
         return value_type(20.) * log10(normalized);
@@ -92,7 +90,7 @@ public:
         value_type const value =
             value_string == "-inf" ? value_type(min_dB) : value_type(std::stod(value_string));
 
-        return value;
+        return clamp(value, min_dB, max_dB);
     }
 
     //-------------------------------------------------------------------------
