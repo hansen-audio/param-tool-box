@@ -20,17 +20,17 @@ cmake --build .
 
 ## Using the tools and examples
 
-### Parameter ramp processor
+### Ramp processor
 
-The ```PTB::ParamRampProcessor``` can take a list of automation curve points and interpolate between them. This allows sample accurate automation curve processing. By providing it a lambda function to retrieve the automation curve points, the class is not bound to any list implementation.
+The ```ptb::RampProcessor``` can take a list of automation curve points and interpolate between them. This allows sample accurate automation curve processing. By providing it a lambda function to retrieve the automation curve points, the class is not bound to any list implementation.
 
 In order to use it with ```Vst::IParamValueQueue```, do as follows:
 
 ```
-PTB::ParamRampProcessor createPRP(Vst::IParamValueQueue* queue, float initValue)
+ptb::RampProcessor createRampProcessor(Vst::IParamValueQueue* queue, float initValue)
 {
     // Create lambda for Vst::IParamValueQueue ...
-    const auto pvqp = [queue](int index, int& offset, PTB::ParamRampProcessor::mut_ValueType& value) {
+    const auto pvqp = [queue](int index, int& offset, ptb::RampProcessor::mut_ValueType& value) {
         if (!queue)
             return false;
 
@@ -49,8 +49,8 @@ PTB::ParamRampProcessor createPRP(Vst::IParamValueQueue* queue, float initValue)
         return false;
     };
 
-    // ... and pass it to the PTB::ParamRampProcessor!
-    return PTB::ParamRampProcessor(pvqp, initValue);
+    // ... and pass it to the ptb::RampProcessor!
+    return ptb::RampProcessor(pvqp, initValue);
 }
 
 //-------------------------------------------------------------------
@@ -59,8 +59,8 @@ Steinberg::tresult MyPlugin::process(Vst::ProcessData& data)
     // Get Vst::IParamValueQueue from data.paramChanges
     IParamValueQueue* myParamQueue = ...
 
-    // Create a stack object of PTB::ParamRampProcessor
-    PTB::ParamRampProcessor myParamProcessor = createPRP(myParamQueue, m_lastValue);
+    // Create a stack object of ptb::RampProcessor
+    ptb::RampProcessor myParamProcessor = createRampProcessor(myParamQueue, m_lastValue);
 
     for(...)
     {
