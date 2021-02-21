@@ -34,11 +34,11 @@ class Dezibel final
 {
 public:
     //-------------------------------------------------------------------------
-    using string_type  = const std::string;
-    using value_type   = tRealType;
-    using fn_precision = std::function<int(value_type)>;
-
-    static const int kStandardPrecision = 2;
+    using string_type                         = const std::string;
+    using value_type                          = tRealType;
+    using fn_precision                        = std::function<int(value_type)>;
+    static constexpr value_type kReciprocal20 = value_type(1.) / value_type(20.);
+    static const int kStandardPrecision       = 2;
 
     Dezibel(value_type min_dB, value_type max_dB)
     : min_dB(min_dB)
@@ -49,7 +49,7 @@ public:
     value_type toPhysical(value_type normalized) const
     {
         static constexpr value_type kBase = 10.;
-        static const value_type kExp      = (value_type(1.) / value_type(20.)) * min_dB;
+        static const value_type kExp      = kReciprocal20 * min_dB;
         static const value_type kNormMin  = pow(kBase, kExp);
 
 #if __cplusplus < 201700
@@ -58,7 +58,7 @@ public:
 #else
         normalized = std::clamp(normalized, kNormMin, value_type(1.));
 #endif
-        return value_type(20.) * log(normalized) / log(value_type(10.));
+        return value_type(20.) * log10(normalized);
     }
 
     value_type toNormalized(value_type physical) const
@@ -69,7 +69,7 @@ public:
 #else
         physical   = std::clamp(physical, min_dB, max_dB);
 #endif
-        return pow(value_type(10.), value_type(1.) / value_type(20.) * physical);
+        return pow(value_type(10.), kReciprocal20 * physical);
     }
 
     string_type toString(value_type physical, const fn_precision& precision_func = nullptr) const
