@@ -6,12 +6,10 @@
 
 #include <vector>
 
-using namespace HA::PTB;
-
 namespace {
 
 //-----------------------------------------------------------------------------
-using fDezibel = Convert::Dezibel<float>;
+using fDezibel = ha::ptb::convert::Dezibel<float>;
 static const fDezibel dB_converter(-96., 0.);
 
 //-----------------------------------------------------------------------------

@@ -6,15 +6,15 @@
 
 #include <vector>
 
-using namespace HA::PTB;
+using namespace ha::ptb;
 
-using ValueType     = RampProcessor::ValueType;
-using mut_ValueType = RampProcessor::mut_ValueType;
+using value_type     = RampProcessor::value_type;
+using mut_value_type = RampProcessor::mut_value_type;
 
 struct ParamData
 {
-    int offset    = 0;
-    ValueType val = 0.f;
+    int offset     = 0;
+    value_type val = 0.f;
 };
 
 using ParamValueQueue = std::vector<ParamData>;
@@ -25,7 +25,7 @@ TEST(ParamToolBoxTest, testRampProcessor_invalidQueue)
 {
     constexpr float kInitVal = 0.5f;
     int counter              = 0;
-    auto cb                  = [&counter](int index, int& offset, mut_ValueType& value) -> bool {
+    auto cb                  = [&counter](int index, int& offset, mut_value_type& value) -> bool {
         counter++;
         return false;
     };
@@ -44,7 +44,7 @@ TEST(ParamToolBoxTest, testRampProcessor_noRampValueFromGUIEditor)
     static const ParamValueQueue kValueQueue = {{0, 0.75f}};
     constexpr float kInitVal                 = 0.5f;
     int counter                              = 0;
-    auto cb = [&counter](int index, int& offset, mut_ValueType& value) -> bool {
+    auto cb = [&counter](int index, int& offset, mut_value_type& value) -> bool {
         ++counter;
 
         if (index < kValueQueue.size())
@@ -72,7 +72,7 @@ TEST(ParamToolBoxTest, testRampProcessor_oneRamp)
     constexpr float kInitVal                 = 0.6f;
     static const ParamValueQueue kValueQueue = {{0, kInitVal}, {4, 1.0f}};
     int counter                              = 0;
-    auto cb = [&counter](int index, int& offset, mut_ValueType& value) -> bool {
+    auto cb = [&counter](int index, int& offset, mut_value_type& value) -> bool {
         ++counter;
 
         if (index < kValueQueue.size())
@@ -100,7 +100,7 @@ TEST(ParamToolBoxTest, testRampProcessor_twoRamps)
     constexpr float kInitVal                 = 0.6f;
     static const ParamValueQueue kValueQueue = {{0, kInitVal}, {4, 1.0f}, {9, 0.5f}};
     int counter                              = 0;
-    auto cb = [&counter](int index, int& offset, mut_ValueType& value) -> bool {
+    auto cb = [&counter](int index, int& offset, mut_value_type& value) -> bool {
         ++counter;
 
         if (index < kValueQueue.size())

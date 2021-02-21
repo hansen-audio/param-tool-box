@@ -2,8 +2,8 @@
 
 #pragma once
 
-namespace HA {
-namespace PTB {
+namespace ha {
+namespace ptb {
 
 //------------------------------------------------------------------------
 //  Ramp
@@ -12,20 +12,20 @@ class Ramp final
 {
 public:
     //------------------------------------------------------------------------
-    using ValueType     = const float;
-    using mut_ValueType = float;
+    using value_type     = const float;
+    using mut_value_type = float;
 
-    Ramp(ValueType src, ValueType dst, int _numSamples);
-    ValueType advance(ValueType x);
-    bool isDone(ValueType x) const;
+    Ramp(value_type src, value_type dst, int _numSamples);
+    value_type advance(value_type x);
+    bool isDone(value_type x) const;
 
     //------------------------------------------------------------------------
 private:
-    mut_ValueType src   = 0.f;
-    mut_ValueType dst   = 0.f;
-    mut_ValueType delta = 0.1f;
+    mut_value_type src   = 0.f;
+    mut_value_type dst   = 0.f;
+    mut_value_type delta = 0.1f;
 };
 
 //-----------------------------------------------------------------------------
-} // namespace PTB
-} // namespace HA
+} // namespace ptb
+} // namespace ha

@@ -4,7 +4,7 @@
 #include <algorithm>
 #include <math.h>
 
-namespace HA {
+namespace ha {
 namespace {
 
 //------------------------------------------------------------------------
@@ -32,11 +32,11 @@ T calcDelta(T cur, T dst, int n)
 //------------------------------------------------------------------------
 } // namespace
 
-namespace PTB {
+namespace ptb {
 //-----------------------------------------------------------------------------
 // Ramp
 //-----------------------------------------------------------------------------
-Ramp::Ramp(ValueType src, ValueType dst, int numSamples)
+Ramp::Ramp(value_type src, value_type dst, int numSamples)
 : src(src)
 , dst(dst)
 , delta(calcDelta(src, dst, std::max(numSamples, 1)))
@@ -45,17 +45,17 @@ Ramp::Ramp(ValueType src, ValueType dst, int numSamples)
 }
 
 //-----------------------------------------------------------------------------
-Ramp::ValueType Ramp::advance(ValueType x)
+Ramp::value_type Ramp::advance(value_type x)
 {
     return dezip(x, delta, dst);
 }
 
 //-----------------------------------------------------------------------------
-bool Ramp::isDone(ValueType x) const
+bool Ramp::isDone(value_type x) const
 {
     return x == dst;
 }
 
 //-----------------------------------------------------------------------------
-} // namespace PTB
-} // namespace HA
+} // namespace ptb
+} // namespace ha

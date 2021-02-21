@@ -6,8 +6,8 @@
 #include "ramp.h"
 #include <functional>
 
-namespace HA {
-namespace PTB {
+namespace ha {
+namespace ptb {
 
 //------------------------------------------------------------------------
 // RampProcessor
@@ -16,15 +16,15 @@ class RampProcessor
 {
 public:
     //--------------------------------------------------------------------
-    using ValueType     = Ramp::ValueType;
-    using mut_ValueType = Ramp::mut_ValueType;
+    using value_type     = Ramp::value_type;
+    using mut_value_type = Ramp::mut_value_type;
 
     using FuncParamValueQueue =
-        std::function<bool(int /*index*/, int& /*offset*/, mut_ValueType& /*value*/)>;
+        std::function<bool(int /*index*/, int& /*offset*/, mut_value_type& /*value*/)>;
 
-    RampProcessor(FuncParamValueQueue queue, ValueType init);
-    ValueType advance();
-    ValueType getValue() const;
+    RampProcessor(FuncParamValueQueue queue, value_type init);
+    value_type advance();
+    value_type getValue() const;
 
     //--------------------------------------------------------------------
 private:
@@ -35,9 +35,9 @@ private:
     FuncParamValueQueue queueFunc = nullptr;
     int currSegment               = 0;
     bool moreRamps                = true;
-    mut_ValueType x               = 0.f;
+    mut_value_type x              = 0.f;
 };
 
 //-----------------------------------------------------------------------------
-} // namespace PTB
-} // namespace HA
+} // namespace ptb
+} // namespace ha

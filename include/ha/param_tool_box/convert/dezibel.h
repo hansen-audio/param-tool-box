@@ -8,9 +8,9 @@
 #include <sstream>
 #include <string>
 
-namespace HA {
-namespace PTB {
-namespace Convert {
+namespace ha {
+namespace ptb {
+namespace convert {
 namespace {
 
 //-----------------------------------------------------------------------------
@@ -96,6 +96,6 @@ private:
 };
 
 //-----------------------------------------------------------------------------
-} // namespace Convert
-} // namespace PTB
-} // namespace HA
+} // namespace convert
+} // namespace ptb
+} // namespace ha

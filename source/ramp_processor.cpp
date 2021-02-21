@@ -3,13 +3,13 @@
 #include "ha/param_tool_box/process/ramp_processor.h"
 #include <algorithm>
 
-namespace HA {
-namespace PTB {
+namespace ha {
+namespace ptb {
 
 //------------------------------------------------------------------------
 // RampProcessor
 //------------------------------------------------------------------------
-RampProcessor::RampProcessor(FuncParamValueQueue queueFunc, ValueType init)
+RampProcessor::RampProcessor(FuncParamValueQueue queueFunc, value_type init)
 : queueFunc(std::move(queueFunc))
 , ramp({init, init, 0})
 , x(init)
@@ -18,7 +18,7 @@ RampProcessor::RampProcessor(FuncParamValueQueue queueFunc, ValueType init)
 }
 
 //-----------------------------------------------------------------------------
-RampProcessor::ValueType RampProcessor::advance()
+RampProcessor::value_type RampProcessor::advance()
 {
     if (ramp.isDone(x))
     {
@@ -33,7 +33,7 @@ RampProcessor::ValueType RampProcessor::advance()
 }
 
 //-----------------------------------------------------------------------------
-RampProcessor::ValueType RampProcessor::getValue() const
+RampProcessor::value_type RampProcessor::getValue() const
 {
     return x;
 }
@@ -48,15 +48,15 @@ void RampProcessor::updateRamp()
 //-----------------------------------------------------------------------------
 void RampProcessor::initRamp(int index)
 {
-    int offset0        = 0;
-    mut_ValueType val0 = 0.;
-    moreRamps          = queueFunc ? queueFunc(index++, offset0, val0) : false;
+    int offset0         = 0;
+    mut_value_type val0 = 0.;
+    moreRamps           = queueFunc ? queueFunc(index++, offset0, val0) : false;
     if (!moreRamps)
         return;
 
-    int offset1        = 0;
-    mut_ValueType val1 = 0.;
-    moreRamps          = queueFunc(index, offset1, val1);
+    int offset1         = 0;
+    mut_value_type val1 = 0.;
+    moreRamps           = queueFunc(index, offset1, val1);
     if (!moreRamps)
     {
         x    = val0;
@@ -69,5 +69,5 @@ void RampProcessor::initRamp(int index)
 }
 
 //-----------------------------------------------------------------------------
-} // namespace PTB
-} // namespace HA
+} // namespace ptb
+} // namespace ha
