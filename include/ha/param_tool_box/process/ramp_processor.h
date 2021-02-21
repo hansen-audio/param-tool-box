@@ -2,7 +2,7 @@
 
 #pragma once
 
-#include "ha/param-tool-box/convert/dezibel.h"
+#include "ha/param_tool_box/convert/dezibel.h"
 #include "ramp.h"
 #include <functional>
 

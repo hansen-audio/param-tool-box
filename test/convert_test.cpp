@@ -1,6 +1,6 @@
 // Copyright(c) 2021 Hansen Audio.
 
-#include "ha/param-tool-box/convert/dezibel.h"
+#include "ha/param_tool_box/convert/dezibel.h"
 
 #include "gtest/gtest.h"
 

@@ -9,9 +9,9 @@ project(ha-param-tool-box)
 add_subdirectory(external)
 
 add_library(param-tool-box STATIC
-    include/ha/param-tool-box/convert/dezibel.h
-    include/ha/param-tool-box/process/ramp_processor.h
-    include/ha/param-tool-box/process/ramp.h
+    include/ha/param_tool_box/convert/dezibel.h
+    include/ha/param_tool_box/process/ramp_processor.h
+    include/ha/param_tool_box/process/ramp.h
     source/ramp.cpp
     source/ramp_processor.cpp
 )

@@ -1,6 +1,6 @@
 // Copyright(c) 2021 Hansen Audio.
 
-#include "ha/param-tool-box/process/ramp.h"
+#include "ha/param_tool_box/process/ramp.h"
 #include <algorithm>
 #include <math.h>
 
