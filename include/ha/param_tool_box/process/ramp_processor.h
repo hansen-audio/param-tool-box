@@ -18,11 +18,11 @@ public:
     //--------------------------------------------------------------------
     using value_type     = ramp::value_type;
     using mut_value_type = ramp::mut_value_type;
-
     using fn_value_queue =
         std::function<bool(int /*index*/, int& /*offset*/, mut_value_type& /*value*/)>;
 
     ramp_processor(fn_value_queue queue, value_type init);
+
     value_type advance();
     value_type get_value() const;
 

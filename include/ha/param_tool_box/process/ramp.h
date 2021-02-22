@@ -16,6 +16,7 @@ public:
     using mut_value_type = float;
 
     ramp(value_type src, value_type dst, int _num_samples);
+
     value_type advance(value_type x);
     bool is_done(value_type x) const;
 
