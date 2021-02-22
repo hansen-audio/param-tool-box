@@ -52,16 +52,16 @@ public:
     static value_type constexpr creciprocal_20 = value_type(1.) / value_type(20.);
     static int const cstandard_precision       = 2;
 
-    dezibel(value_type min_dB, value_type max_dB)
-    : min_dB(min_dB)
-    , max_dB(max_dB)
+    dezibel(value_type lo, value_type hi)
+    : lo(lo)
+    , hi(hi)
     {
     }
 
     value_type to_physical(value_type normalized) const
     {
         static value_type const cbase     = 10.;
-        static value_type const cexp      = creciprocal_20 * min_dB;
+        static value_type const cexp      = creciprocal_20 * lo;
         static value_type const cnorm_min = pow(cbase, cexp);
 
         normalized = clamp(normalized, cnorm_min, value_type(1.));
@@ -71,32 +71,32 @@ public:
 
     value_type to_normalized(value_type physical) const
     {
-        physical = clamp(physical, min_dB, max_dB);
+        physical = clamp(physical, lo, hi);
 
         return pow(value_type(10.), creciprocal_20 * physical);
     }
 
     string_type to_string(value_type physical, fn_precision const& precision_func = nullptr) const
     {
-        value_type const tmp_physical = clamp(physical, min_dB, max_dB);
+        value_type const tmp_physical = clamp(physical, lo, hi);
         int const precision = precision_func ? precision_func(tmp_physical) : cstandard_precision;
 
-        return tmp_physical <= min_dB ? "-inf" : to_string_with_precision(tmp_physical, precision);
+        return tmp_physical <= lo ? "-inf" : to_string_with_precision(tmp_physical, precision);
     }
 
     value_type from_string(string_type const& value_string) const
     {
         // TODO: Make this more robust to non-digit inputs.
         value_type const value =
-            value_string == "-inf" ? value_type(min_dB) : value_type(std::stod(value_string));
+            value_string == "-inf" ? value_type(lo) : value_type(std::stod(value_string));
 
-        return clamp(value, min_dB, max_dB);
+        return clamp(value, lo, hi);
     }
 
     //-------------------------------------------------------------------------
 private:
-    value_type min_dB = -96.;
-    value_type max_dB = 0.;
+    value_type lo = -96.;
+    value_type hi = 0.;
 };
 
 //-----------------------------------------------------------------------------
