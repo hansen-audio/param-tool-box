@@ -24,7 +24,7 @@ T dezip(T x, T delta, T dst)
 
 //------------------------------------------------------------------------
 template <typename T>
-T calcDelta(T cur, T dst, int n)
+T calc_delta(T cur, T dst, int n)
 {
     return fabs(dst - cur) / static_cast<T>(n);
 }
@@ -39,9 +39,9 @@ namespace ptb {
 ramp::ramp(value_type src, value_type dst, int num_samples)
 : src(src)
 , dst(dst)
-, delta(calcDelta(src, dst, std::max(num_samples, 1)))
+, delta(calc_delta(src, dst, std::max(num_samples, 1)))
 {
-    // _numSamples > 0 to prevent division by zero.
+    // num_samples > 0 to prevent division by zero.
 }
 
 //-----------------------------------------------------------------------------
