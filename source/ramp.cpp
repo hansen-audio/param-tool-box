@@ -34,9 +34,9 @@ T calcDelta(T cur, T dst, int n)
 
 namespace ptb {
 //-----------------------------------------------------------------------------
-// Ramp
+// ramp
 //-----------------------------------------------------------------------------
-Ramp::Ramp(value_type src, value_type dst, int num_samples)
+ramp::ramp(value_type src, value_type dst, int num_samples)
 : src(src)
 , dst(dst)
 , delta(calcDelta(src, dst, std::max(num_samples, 1)))
@@ -45,13 +45,13 @@ Ramp::Ramp(value_type src, value_type dst, int num_samples)
 }
 
 //-----------------------------------------------------------------------------
-Ramp::value_type Ramp::advance(value_type x)
+ramp::value_type ramp::advance(value_type x)
 {
     return dezip(x, delta, dst);
 }
 
 //-----------------------------------------------------------------------------
-bool Ramp::isDone(value_type x) const
+bool ramp::is_done(value_type x) const
 {
     return x == dst;
 }

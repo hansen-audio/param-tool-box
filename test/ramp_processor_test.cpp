@@ -8,8 +8,8 @@
 
 using namespace ha::ptb;
 
-using value_type     = RampProcessor::value_type;
-using mut_value_type = RampProcessor::mut_value_type;
+using value_type     = ramp_processor::value_type;
+using mut_value_type = ramp_processor::mut_value_type;
 
 struct ParamData
 {
@@ -23,33 +23,33 @@ namespace {
 //-----------------------------------------------------------------------------
 TEST(ParamToolBoxTest, testRampProcessor_invalidQueue)
 {
-    constexpr float kInitVal = 0.5f;
-    int counter              = 0;
-    auto cb                  = [&counter](int index, int& offset, mut_value_type& value) -> bool {
+    constexpr float kinit_val = 0.5f;
+    int counter               = 0;
+    auto cb                   = [&counter](int index, int& offset, mut_value_type& value) -> bool {
         counter++;
         return false;
     };
 
-    RampProcessor proc(cb, kInitVal);
-    EXPECT_FLOAT_EQ(proc.getValue(), kInitVal);
-    EXPECT_FLOAT_EQ(proc.advance(), kInitVal);
-    EXPECT_FLOAT_EQ(proc.advance(), kInitVal);
-    EXPECT_FLOAT_EQ(proc.advance(), kInitVal);
+    ramp_processor proc(cb, kinit_val);
+    EXPECT_FLOAT_EQ(proc.get_value(), kinit_val);
+    EXPECT_FLOAT_EQ(proc.advance(), kinit_val);
+    EXPECT_FLOAT_EQ(proc.advance(), kinit_val);
+    EXPECT_FLOAT_EQ(proc.advance(), kinit_val);
     EXPECT_EQ(counter, 1);
 }
 
 //-----------------------------------------------------------------------------
 TEST(ParamToolBoxTest, testRampProcessor_noRampValueFromGUIEditor)
 {
-    static ParamValueQueue const kValueQueue = {{0, 0.75f}};
-    constexpr float kInitVal                 = 0.5f;
-    int counter                              = 0;
+    static ParamValueQueue const kvalue_queue = {{0, 0.75f}};
+    constexpr float kinit_val                 = 0.5f;
+    int counter                               = 0;
     auto cb = [&counter](int index, int& offset, mut_value_type& value) -> bool {
         ++counter;
 
-        if (index < kValueQueue.size())
+        if (index < kvalue_queue.size())
         {
-            const ParamData& data = kValueQueue.at(index);
+            const ParamData& data = kvalue_queue.at(index);
             offset                = data.offset;
             value                 = data.val;
             return true;
@@ -57,8 +57,8 @@ TEST(ParamToolBoxTest, testRampProcessor_noRampValueFromGUIEditor)
         return false;
     };
 
-    RampProcessor proc(cb, kInitVal);
-    EXPECT_FLOAT_EQ(proc.getValue(), 0.75f);
+    ramp_processor proc(cb, kinit_val);
+    EXPECT_FLOAT_EQ(proc.get_value(), 0.75f);
     EXPECT_FLOAT_EQ(proc.advance(), 0.75f);
     EXPECT_FLOAT_EQ(proc.advance(), 0.75f);
     EXPECT_FLOAT_EQ(proc.advance(), 0.75f);
@@ -69,15 +69,15 @@ TEST(ParamToolBoxTest, testRampProcessor_noRampValueFromGUIEditor)
 //-----------------------------------------------------------------------------
 TEST(ParamToolBoxTest, testRampProcessor_oneRamp)
 {
-    constexpr float kInitVal                 = 0.6f;
-    static ParamValueQueue const kValueQueue = {{0, kInitVal}, {4, 1.0f}};
-    int counter                              = 0;
+    constexpr float kinit_val                 = 0.6f;
+    static ParamValueQueue const kvalue_queue = {{0, kinit_val}, {4, 1.0f}};
+    int counter                               = 0;
     auto cb = [&counter](int index, int& offset, mut_value_type& value) -> bool {
         ++counter;
 
-        if (index < kValueQueue.size())
+        if (index < kvalue_queue.size())
         {
-            const ParamData& data = kValueQueue.at(index);
+            const ParamData& data = kvalue_queue.at(index);
             offset                = data.offset;
             value                 = data.val;
             return true;
@@ -85,8 +85,8 @@ TEST(ParamToolBoxTest, testRampProcessor_oneRamp)
         return false;
     };
 
-    RampProcessor proc(cb, kInitVal);
-    EXPECT_FLOAT_EQ(proc.getValue(), kInitVal);
+    ramp_processor proc(cb, kinit_val);
+    EXPECT_FLOAT_EQ(proc.get_value(), kinit_val);
     EXPECT_FLOAT_EQ(proc.advance(), 0.7f);
     EXPECT_FLOAT_EQ(proc.advance(), 0.8f);
     EXPECT_FLOAT_EQ(proc.advance(), 0.9f);
@@ -97,15 +97,15 @@ TEST(ParamToolBoxTest, testRampProcessor_oneRamp)
 //-----------------------------------------------------------------------------
 TEST(ParamToolBoxTest, testRampProcessor_twoRamps)
 {
-    constexpr float kInitVal                 = 0.6f;
-    static ParamValueQueue const kValueQueue = {{0, kInitVal}, {4, 1.0f}, {9, 0.5f}};
-    int counter                              = 0;
+    constexpr float kinit_val                 = 0.6f;
+    static ParamValueQueue const kvalue_queue = {{0, kinit_val}, {4, 1.0f}, {9, 0.5f}};
+    int counter                               = 0;
     auto cb = [&counter](int index, int& offset, mut_value_type& value) -> bool {
         ++counter;
 
-        if (index < kValueQueue.size())
+        if (index < kvalue_queue.size())
         {
-            const ParamData& data = kValueQueue.at(index);
+            const ParamData& data = kvalue_queue.at(index);
             offset                = data.offset;
             value                 = data.val;
             return true;
@@ -113,14 +113,14 @@ TEST(ParamToolBoxTest, testRampProcessor_twoRamps)
         return false;
     };
 
-    RampProcessor proc(cb, kInitVal);
-    EXPECT_FLOAT_EQ(proc.getValue(), kInitVal);
+    ramp_processor proc(cb, kinit_val);
+    EXPECT_FLOAT_EQ(proc.get_value(), kinit_val);
     EXPECT_FLOAT_EQ(proc.advance(), 0.7f);
     EXPECT_FLOAT_EQ(proc.advance(), 0.8f);
     EXPECT_FLOAT_EQ(proc.advance(), 0.9f);
     EXPECT_FLOAT_EQ(proc.advance(), 1.0f);
 
-    EXPECT_FLOAT_EQ(proc.getValue(), 1.0f);
+    EXPECT_FLOAT_EQ(proc.get_value(), 1.0f);
     EXPECT_FLOAT_EQ(proc.advance(), 0.9f);
     EXPECT_FLOAT_EQ(proc.advance(), 0.8f);
     EXPECT_FLOAT_EQ(proc.advance(), 0.7f);

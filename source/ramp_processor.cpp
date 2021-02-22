@@ -7,46 +7,46 @@ namespace ha {
 namespace ptb {
 
 //------------------------------------------------------------------------
-// RampProcessor
+// ramp_processor
 //------------------------------------------------------------------------
-RampProcessor::RampProcessor(fn_value_queue queueFunc, value_type init)
+ramp_processor::ramp_processor(fn_value_queue queueFunc, value_type init)
 : queue_func(std::move(queueFunc))
-, ramp({init, init, 0})
+, current_ramp({init, init, 0})
 , x(init)
 {
-    initRamp(0);
+    init_ramp(0);
 }
 
 //-----------------------------------------------------------------------------
-RampProcessor::value_type RampProcessor::advance()
+ramp_processor::value_type ramp_processor::advance()
 {
-    if (ramp.isDone(x))
+    if (current_ramp.is_done(x))
     {
         if (!more_ramps)
             return x;
 
-        updateRamp();
+        update_ramp();
     }
 
-    x = ramp.advance(x);
+    x = current_ramp.advance(x);
     return x;
 }
 
 //-----------------------------------------------------------------------------
-RampProcessor::value_type RampProcessor::getValue() const
+ramp_processor::value_type ramp_processor::get_value() const
 {
     return x;
 }
 
 //-----------------------------------------------------------------------------
-void RampProcessor::updateRamp()
+void ramp_processor::update_ramp()
 {
     current_segment++;
-    initRamp(current_segment);
+    init_ramp(current_segment);
 }
 
 //-----------------------------------------------------------------------------
-void RampProcessor::initRamp(int index)
+void ramp_processor::init_ramp(int index)
 {
     int offset0         = 0;
     mut_value_type val0 = 0.;
@@ -59,13 +59,13 @@ void RampProcessor::initRamp(int index)
     more_ramps          = queue_func(index, offset1, val1);
     if (!more_ramps)
     {
-        x    = val0;
-        ramp = Ramp(val0, val0, 0);
+        x            = val0;
+        current_ramp = ramp(val0, val0, 0);
         return;
     }
 
     int const duration = (offset1 - offset0);
-    ramp               = Ramp(val0, val1, duration);
+    current_ramp       = ramp(val0, val1, duration);
 }
 
 //-----------------------------------------------------------------------------

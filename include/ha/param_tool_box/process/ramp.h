@@ -6,18 +6,18 @@ namespace ha {
 namespace ptb {
 
 //------------------------------------------------------------------------
-//  Ramp
+//  ramp
 //------------------------------------------------------------------------
-class Ramp final
+class ramp final
 {
 public:
     //------------------------------------------------------------------------
     using value_type     = const float;
     using mut_value_type = float;
 
-    Ramp(value_type src, value_type dst, int _num_samples);
+    ramp(value_type src, value_type dst, int _num_samples);
     value_type advance(value_type x);
-    bool isDone(value_type x) const;
+    bool is_done(value_type x) const;
 
     //------------------------------------------------------------------------
 private:

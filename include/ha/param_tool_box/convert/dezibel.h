@@ -41,27 +41,27 @@ constexpr T const& clamp(T const& v, T const& lo, T const& hi)
 //-----------------------------------------------------------------------------
 // Dezibel
 //-----------------------------------------------------------------------------
-template <typename tRealType>
-class Dezibel final
+template <typename RealType>
+class dezibel final
 {
 public:
     //-------------------------------------------------------------------------
-    using string_type                         = std::string const;
-    using value_type                          = tRealType;
-    using fn_precision                        = std::function<int(value_type)>;
-    static value_type constexpr kReciprocal20 = value_type(1.) / value_type(20.);
-    static int const kStandardPrecision       = 2;
+    using string_type                          = std::string const;
+    using value_type                           = RealType;
+    using fn_precision                         = std::function<int(value_type)>;
+    static value_type constexpr kreciprocal_20 = value_type(1.) / value_type(20.);
+    static int const kstandard_precision       = 2;
 
-    Dezibel(value_type min_dB, value_type max_dB)
+    dezibel(value_type min_dB, value_type max_dB)
     : min_dB(min_dB)
     , max_dB(max_dB)
     {
     }
 
-    value_type toPhysical(value_type normalized) const
+    value_type to_physical(value_type normalized) const
     {
         static value_type const kBase    = 10.;
-        static value_type const kExp     = kReciprocal20 * min_dB;
+        static value_type const kExp     = kreciprocal_20 * min_dB;
         static value_type const kNormMin = pow(kBase, kExp);
 
         normalized = clamp(normalized, kNormMin, value_type(1.));
@@ -69,22 +69,22 @@ public:
         return value_type(20.) * log10(normalized);
     }
 
-    value_type toNormalized(value_type physical) const
+    value_type to_normalized(value_type physical) const
     {
         physical = clamp(physical, min_dB, max_dB);
 
-        return pow(value_type(10.), kReciprocal20 * physical);
+        return pow(value_type(10.), kreciprocal_20 * physical);
     }
 
-    string_type toString(value_type physical, fn_precision const& precision_func = nullptr) const
+    string_type to_string(value_type physical, fn_precision const& precision_func = nullptr) const
     {
         value_type const tmp_physical = clamp(physical, min_dB, max_dB);
-        int const precision = precision_func ? precision_func(tmp_physical) : kStandardPrecision;
+        int const precision = precision_func ? precision_func(tmp_physical) : kstandard_precision;
 
         return tmp_physical <= min_dB ? "-inf" : to_string_with_precision(tmp_physical, precision);
     }
 
-    value_type fromString(string_type const& value_string) const
+    value_type from_string(string_type const& value_string) const
     {
         // TODO: Make this more robust to non-digit inputs.
         value_type const value =

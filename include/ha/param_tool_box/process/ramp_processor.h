@@ -10,28 +10,28 @@ namespace ha {
 namespace ptb {
 
 //------------------------------------------------------------------------
-// RampProcessor
+// ramp_processor
 //------------------------------------------------------------------------
-class RampProcessor
+class ramp_processor
 {
 public:
     //--------------------------------------------------------------------
-    using value_type     = Ramp::value_type;
-    using mut_value_type = Ramp::mut_value_type;
+    using value_type     = ramp::value_type;
+    using mut_value_type = ramp::mut_value_type;
 
     using fn_value_queue =
         std::function<bool(int /*index*/, int& /*offset*/, mut_value_type& /*value*/)>;
 
-    RampProcessor(fn_value_queue queue, value_type init);
+    ramp_processor(fn_value_queue queue, value_type init);
     value_type advance();
-    value_type getValue() const;
+    value_type get_value() const;
 
     //--------------------------------------------------------------------
 private:
-    void updateRamp();
-    void initRamp(int index);
+    void update_ramp();
+    void init_ramp(int index);
 
-    Ramp ramp;
+    ramp current_ramp;
     fn_value_queue queue_func = nullptr;
     int current_segment       = 0;
     bool more_ramps           = true;
