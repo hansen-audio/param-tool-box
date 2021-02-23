@@ -39,7 +39,7 @@ constexpr T const& clamp(T const& v, T const& lo, T const& hi)
 } // namespace
 
 //-----------------------------------------------------------------------------
-// Dezibel
+// dezibel
 //-----------------------------------------------------------------------------
 template <typename RealType>
 class dezibel final
@@ -60,7 +60,7 @@ public:
 
     value_type to_physical(value_type normalized) const
     {
-        static value_type const cbase     = 10.;
+        static value_type const cbase     = value_type(10.);
         static value_type const cexp      = creciprocal_20 * lo;
         static value_type const cnorm_min = pow(cbase, cexp);
 
