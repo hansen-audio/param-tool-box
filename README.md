@@ -1,4 +1,5 @@
 # Parameter Tool Box
+[![CMake](https://github.com/hansen-audio/param-tool-box/actions/workflows/cmake.yml/badge.svg)](https://github.com/hansen-audio/param-tool-box/actions/workflows/cmake.yml)
 
 A tool box for parameter and value processing.
 
