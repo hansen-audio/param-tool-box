@@ -42,4 +42,4 @@ jobs:
       working-directory: ${{github.workspace}}/build
       shell: bash
       # Execute google tests
-      run: param-tool-box_test
+      run: ./param-tool-box_test
