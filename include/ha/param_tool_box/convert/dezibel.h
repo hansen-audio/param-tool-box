@@ -61,8 +61,8 @@ public:
     value_type to_physical(value_type normalized) const
     {
         static value_type const cbase     = value_type(10.);
-        static value_type const cexp      = creciprocal_20 * lo;
-        static value_type const cnorm_min = pow(cbase, cexp);
+        static value_type const cexponent = creciprocal_20 * lo;
+        static value_type const cnorm_min = pow(cbase, cexponent);
 
         normalized = clamp(normalized, cnorm_min, value_type(1.));
 
