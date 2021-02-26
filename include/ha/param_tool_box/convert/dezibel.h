@@ -47,11 +47,11 @@ class dezibel final
 {
 public:
     //-------------------------------------------------------------------------
-    using string_type                          = std::string const;
-    using value_type                           = RealType;
-    using fn_precision                         = std::function<i32(value_type)>;
-    static value_type constexpr creciprocal_20 = value_type(1.) / value_type(20.);
-    static i32 const cstandard_precision       = 2;
+    using string_type                         = std::string const;
+    using value_type                          = RealType;
+    using fn_precision                        = std::function<i32(value_type)>;
+    static value_type constexpr RECIPROCAL_20 = value_type(1.) / value_type(20.);
+    static i32 const STANDARD_PRECISION       = 2;
 
     dezibel(value_type lo, value_type hi)
     : lo(lo)
@@ -61,11 +61,11 @@ public:
 
     value_type to_physical(value_type normalized) const
     {
-        static value_type const cbase     = value_type(10.);
-        static value_type const cexponent = creciprocal_20 * lo;
-        static value_type const cnorm_min = pow(cbase, cexponent);
+        static value_type const BASE           = value_type(10.);
+        static value_type const EXPONENT       = RECIPROCAL_20 * lo;
+        static value_type const NOMRALIZED_MIN = pow(BASE, EXPONENT);
 
-        normalized = clamp(normalized, cnorm_min, value_type(1.));
+        normalized = clamp(normalized, NOMRALIZED_MIN, value_type(1.));
 
         return value_type(20.) * log10(normalized);
     }
@@ -74,13 +74,13 @@ public:
     {
         physical = clamp(physical, lo, hi);
 
-        return pow(value_type(10.), creciprocal_20 * physical);
+        return pow(value_type(10.), RECIPROCAL_20 * physical);
     }
 
     string_type to_string(value_type physical, fn_precision const& precision_func = nullptr) const
     {
         value_type const tmp_physical = clamp(physical, lo, hi);
-        i32 const precision = precision_func ? precision_func(tmp_physical) : cstandard_precision;
+        i32 const precision = precision_func ? precision_func(tmp_physical) : STANDARD_PRECISION;
 
         return tmp_physical <= lo ? "-inf" : to_string_with_precision(tmp_physical, precision);
     }
