@@ -28,46 +28,28 @@ The ```ptb::ramp_processor``` can take a list of automation curve points and int
 In order to use it with ```Vst::IParamValueQueue```, do as follows:
 
 ```
-ptb::ramp_processor create_ramp_processor(Vst::IParamValueQueue* queue, float initValue)
+Steinberg::tresult MyPlugin::process(Vst::ProcessData & data)
 {
-    // Create lambda for Vst::IParamValueQueue ...
-    const auto pvqp = [queue](int index, int& offset, ptb::ramp_processor::mut_ValueType& value) {
-        if (!queue)
-            return false;
-
-        if (index < queue->getPointCount())
-        {
-            Vst::ParamValue tmpValue = 0.;
-            int32 offset    tmpOffset = 0;
-            if (queue->getPoint(index, tmpOffset, tmpValue) != kResultOk)
-                return false;
-
-            offset = tmpOffset;
-            value = tmpValue;
+    auto* queue = findParamValueQueue(kParamGainId, data.inputParameterChanges);
+    ptb::ramp_processor gainProc(
+        [queue](int index, int& offset, float& value) -> bool {
+            if (index < queue->getPointCount())
+            {
+                if (queue->getPoint(index, offset, value) != kResultOk)
+                    return false;
+            }
             return true;
-        }
+        },
+        gainValue);
 
-        return false;
-    };
+    if (!data.outputs || !data.inputs)
+        return kResultOk;
 
-    // ... and pass it to the ptb::ramp_processor!
-    return ptb::ramp_processor(pvqp, initValue);
-}
-
-//-------------------------------------------------------------------
-Steinberg::tresult MyPlugin::process(Vst::ProcessData& data)
-{
-    // Get Vst::IParamValueQueue from data.paramChanges
-    IParamValueQueue* myParamQueue = ...
-
-    // Create a stack object of ptb::ramp_processor
-    ptb::ramp_processor myParamProcessor = create_ramp_processor(myParamQueue, m_lastValue);
-
-    for(...)
+    for (...)
     {
-        (*output)++ = (*input)++ * myParamProcessor.getValue();
+        (*output)++ = (*input)++ * gainProc.getValue();
 
-        myParamProcessor.advance();
+        gainProc.advance();
     }
 }
 ```
