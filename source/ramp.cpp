@@ -10,7 +10,7 @@ namespace {
 
 //------------------------------------------------------------------------
 template <typename T>
-T dezip(T x, T delta, T dst)
+T dezip(T x, const T delta, const T dst)
 {
     const T kDiff = dst - x;
     if (kDiff > delta)
@@ -27,7 +27,7 @@ T dezip(T x, T delta, T dst)
 template <typename T>
 T calc_delta(const T cur, const T dst, const i32 n)
 {
-    return fabs(dst - cur) / static_cast<T>(n);
+    return abs(dst - cur) / static_cast<T>(n);
 }
 
 //------------------------------------------------------------------------
