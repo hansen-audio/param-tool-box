@@ -4,6 +4,7 @@
 
 #include "ha/param_tool_box/convert/dezibel.h"
 #include "ramp.h"
+#include <cstdint>
 #include <functional>
 
 namespace ha {
@@ -18,8 +19,9 @@ public:
     //--------------------------------------------------------------------
     using value_type     = ramp::value_type;
     using mut_value_type = ramp::mut_value_type;
+    using i32            = std::int32_t;
     using fn_value_queue =
-        std::function<bool(int /*index*/, int& /*offset*/, mut_value_type& /*value*/)>;
+        std::function<bool(i32 /*index*/, i32& /*offset*/, mut_value_type& /*value*/)>;
 
     ramp_processor(fn_value_queue queue, value_type init);
 
@@ -29,11 +31,11 @@ public:
     //--------------------------------------------------------------------
 private:
     void update_ramp();
-    void init_ramp(int index);
+    void init_ramp(i32 index);
 
     ramp current_ramp;
     fn_value_queue queue_func = nullptr;
-    int current_segment       = 0;
+    i32 current_segment       = 0;
     bool more_ramps           = true;
     mut_value_type x          = 0.f;
 };

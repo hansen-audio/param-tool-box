@@ -46,15 +46,15 @@ void ramp_processor::update_ramp()
 }
 
 //-----------------------------------------------------------------------------
-void ramp_processor::init_ramp(int index)
+void ramp_processor::init_ramp(i32 index)
 {
-    int offset0         = 0;
+    i32 offset0         = 0;
     mut_value_type val0 = 0.;
     more_ramps          = queue_func ? queue_func(index++, offset0, val0) : false;
     if (!more_ramps)
         return;
 
-    int offset1         = 0;
+    i32 offset1         = 0;
     mut_value_type val1 = 0.;
     more_ramps          = queue_func(index, offset1, val1);
     if (!more_ramps)
@@ -64,7 +64,7 @@ void ramp_processor::init_ramp(int index)
         return;
     }
 
-    int const duration = (offset1 - offset0);
+    i32 const duration = (offset1 - offset0);
     current_ramp       = ramp(val0, val1, duration);
 }
 

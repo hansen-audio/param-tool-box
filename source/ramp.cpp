@@ -5,6 +5,7 @@
 #include <math.h>
 
 namespace ha {
+namespace ptb {
 namespace {
 
 //------------------------------------------------------------------------
@@ -24,7 +25,7 @@ T dezip(T x, T delta, T dst)
 
 //------------------------------------------------------------------------
 template <typename T>
-T calc_delta(T cur, T dst, int n)
+T calc_delta(T cur, T dst, ramp::i32 n)
 {
     return fabs(dst - cur) / static_cast<T>(n);
 }
@@ -32,11 +33,10 @@ T calc_delta(T cur, T dst, int n)
 //------------------------------------------------------------------------
 } // namespace
 
-namespace ptb {
 //-----------------------------------------------------------------------------
 // ramp
 //-----------------------------------------------------------------------------
-ramp::ramp(value_type src, value_type dst, int num_samples)
+ramp::ramp(value_type src, value_type dst, i32 num_samples)
 : src(src)
 , dst(dst)
 , delta(calc_delta(src, dst, std::max(num_samples, 1)))
