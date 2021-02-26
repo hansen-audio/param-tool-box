@@ -1,5 +1,5 @@
 # Parameter Tool Box
-[![CMake](https://github.com/hansen-audio/param-tool-box/actions/workflows/cmake.yml/badge.svg)](https://github.com/hansen-audio/param-tool-box/actions/workflows/cmake.yml)
+[![Linux Build](https://github.com/hansen-audio/param-tool-box/actions/workflows/cmake_linux.yml/badge.svg)](https://github.com/hansen-audio/param-tool-box/actions/workflows/cmake_linux.yml)[![macOS Build](https://github.com/hansen-audio/param-tool-box/actions/workflows/cmake_macOS.yml/badge.svg)](https://github.com/hansen-audio/param-tool-box/actions/workflows/cmake_macOS.yml)
 
 A tool box for parameter and value processing.
 
