@@ -8,8 +8,8 @@
 
 using namespace ha::ptb;
 
-using value_type     = ramp_processor::value_type;
-using mut_value_type = ramp_processor::mut_value_type;
+using value_type     = const float;
+using mut_value_type = float;
 
 struct ParamData
 {
