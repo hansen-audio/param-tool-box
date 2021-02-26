@@ -24,9 +24,9 @@ public:
 
     //------------------------------------------------------------------------
 private:
-    mut_value_type src   = 0.f;
-    mut_value_type dst   = 0.f;
-    mut_value_type delta = 0.1f;
+    mut_value_type src   = value_type(0.0);
+    mut_value_type dst   = value_type(0.0);
+    mut_value_type delta = value_type(0.1);
 };
 
 //-----------------------------------------------------------------------------

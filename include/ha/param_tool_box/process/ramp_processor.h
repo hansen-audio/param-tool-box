@@ -38,10 +38,10 @@ private:
     void init_ramp(i32 index);
 
     ramp current_ramp;
+    mut_value_type x          = value_type(0.);
     fn_value_queue queue_func = nullptr;
     i32 current_segment       = 0;
     bool more_ramps           = true;
-    mut_value_type x          = 0.f;
 };
 
 //------------------------------------------------------------------------
@@ -92,13 +92,13 @@ template <typename Func>
 void ramp_processor<Func>::init_ramp(i32 index)
 {
     i32 offset0         = 0;
-    mut_value_type val0 = 0.;
+    mut_value_type val0 = value_type(0.);
     more_ramps          = queue_func(index++, offset0, val0);
     if (!more_ramps)
         return;
 
     i32 offset1         = 0;
-    mut_value_type val1 = 0.;
+    mut_value_type val1 = value_type(0.);
     more_ramps          = queue_func(index, offset1, val1);
     if (!more_ramps)
     {
