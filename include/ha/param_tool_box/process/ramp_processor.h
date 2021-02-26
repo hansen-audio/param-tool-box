@@ -3,8 +3,8 @@
 #pragma once
 
 #include "ha/param_tool_box/convert/dezibel.h"
+#include "ha/param_tool_box/core/types.h"
 #include "ramp.h"
-#include <cstdint>
 #include <functional>
 
 namespace ha {
@@ -24,7 +24,6 @@ public:
     //--------------------------------------------------------------------
     using value_type     = ramp::value_type;
     using mut_value_type = ramp::mut_value_type;
-    using i32            = std::int32_t;
     // using Func = std::function<bool(i32 /*index*/, i32& /*offset*/, mut_value_type& /*value*/)>;
     using fn_value_queue = Func;
 

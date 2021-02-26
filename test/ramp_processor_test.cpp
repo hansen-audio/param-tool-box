@@ -13,7 +13,7 @@ using mut_value_type = float;
 
 struct ParamData
 {
-    int offset     = 0;
+    i32 offset     = 0;
     value_type val = 0.f;
 };
 
@@ -24,8 +24,8 @@ namespace {
 TEST(ParamToolBoxTest, testRampProcessor_invalidQueue)
 {
     constexpr float kinit_val = 0.5f;
-    int counter               = 0;
-    auto cb                   = [&counter](int index, int& offset, mut_value_type& value) -> bool {
+    i32 counter               = 0;
+    auto cb                   = [&counter](i32 index, i32& offset, mut_value_type& value) -> bool {
         counter++;
         return false;
     };
@@ -43,8 +43,8 @@ TEST(ParamToolBoxTest, testRampProcessor_noRampValueFromGUIEditor)
 {
     static ParamValueQueue const kvalue_queue = {{0, 0.75f}};
     constexpr float kinit_val                 = 0.5f;
-    int counter                               = 0;
-    auto cb = [&counter](int index, int& offset, mut_value_type& value) -> bool {
+    i32 counter                               = 0;
+    auto cb = [&counter](i32 index, i32& offset, mut_value_type& value) -> bool {
         ++counter;
 
         if (index < kvalue_queue.size())
@@ -71,8 +71,8 @@ TEST(ParamToolBoxTest, testRampProcessor_oneRamp)
 {
     constexpr float kinit_val                 = 0.6f;
     static ParamValueQueue const kvalue_queue = {{0, kinit_val}, {4, 1.0f}};
-    int counter                               = 0;
-    auto cb = [&counter](int index, int& offset, mut_value_type& value) -> bool {
+    i32 counter                               = 0;
+    auto cb = [&counter](i32 index, i32& offset, mut_value_type& value) -> bool {
         ++counter;
 
         if (index < kvalue_queue.size())
@@ -99,8 +99,8 @@ TEST(ParamToolBoxTest, testRampProcessor_twoRamps)
 {
     constexpr float kinit_val                 = 0.6f;
     static ParamValueQueue const kvalue_queue = {{0, kinit_val}, {4, 1.0f}, {9, 0.5f}};
-    int counter                               = 0;
-    auto cb = [&counter](int index, int& offset, mut_value_type& value) -> bool {
+    i32 counter                               = 0;
+    auto cb = [&counter](i32 index, i32& offset, mut_value_type& value) -> bool {
         ++counter;
 
         if (index < kvalue_queue.size())

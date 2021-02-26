@@ -2,6 +2,7 @@
 
 #pragma once
 
+#include "ha/param_tool_box/core/types.h"
 #include <algorithm>
 #include <functional>
 #include <math.h>
@@ -15,7 +16,7 @@ namespace {
 
 //-----------------------------------------------------------------------------
 template <typename T>
-std::string to_string_with_precision(T const a_value, int const n = 6)
+std::string to_string_with_precision(T const a_value, i32 const n = 6)
 {
     std::ostringstream out;
     out.precision(n);
@@ -48,9 +49,9 @@ public:
     //-------------------------------------------------------------------------
     using string_type                          = std::string const;
     using value_type                           = RealType;
-    using fn_precision                         = std::function<int(value_type)>;
+    using fn_precision                         = std::function<i32(value_type)>;
     static value_type constexpr creciprocal_20 = value_type(1.) / value_type(20.);
-    static int const cstandard_precision       = 2;
+    static i32 const cstandard_precision       = 2;
 
     dezibel(value_type lo, value_type hi)
     : lo(lo)
@@ -79,7 +80,7 @@ public:
     string_type to_string(value_type physical, fn_precision const& precision_func = nullptr) const
     {
         value_type const tmp_physical = clamp(physical, lo, hi);
-        int const precision = precision_func ? precision_func(tmp_physical) : cstandard_precision;
+        i32 const precision = precision_func ? precision_func(tmp_physical) : cstandard_precision;
 
         return tmp_physical <= lo ? "-inf" : to_string_with_precision(tmp_physical, precision);
     }

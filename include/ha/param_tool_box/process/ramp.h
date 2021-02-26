@@ -2,7 +2,7 @@
 
 #pragma once
 
-#include <cstdint>
+#include "ha/param_tool_box/core/types.h"
 
 namespace ha {
 namespace ptb {
@@ -16,7 +16,6 @@ public:
     //------------------------------------------------------------------------
     using value_type     = const float;
     using mut_value_type = float;
-    using i32            = std::int32_t;
 
     ramp(value_type src, value_type dst, i32 _num_samples);
 

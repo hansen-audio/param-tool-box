@@ -25,7 +25,7 @@ T dezip(T x, T delta, T dst)
 
 //------------------------------------------------------------------------
 template <typename T>
-T calc_delta(T cur, T dst, ramp::i32 n)
+T calc_delta(const T cur, const T dst, const i32 n)
 {
     return fabs(dst - cur) / static_cast<T>(n);
 }
