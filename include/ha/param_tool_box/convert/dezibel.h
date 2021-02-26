@@ -83,11 +83,12 @@ dezibel<RealType>::dezibel(value_type lo, value_type hi)
 template <typename RealType>
 typename dezibel<RealType>::value_type dezibel<RealType>::to_physical(value_type normalized) const
 {
-    static value_type const BASE           = value_type(10.);
+    constexpr value_type BASE              = value_type(10.);
+    constexpr NOMRALIZED_MAX               = value_type(1.);
     static value_type const EXPONENT       = RECIPROCAL_20 * lo;
     static value_type const NOMRALIZED_MIN = pow(BASE, EXPONENT);
 
-    normalized = clamp(normalized, NOMRALIZED_MIN, value_type(1.));
+    normalized = clamp(normalized, NOMRALIZED_MIN, NOMRALIZED_MAX);
 
     return value_type(20.) * log10(normalized);
 }
