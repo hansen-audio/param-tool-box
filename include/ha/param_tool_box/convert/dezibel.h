@@ -7,7 +7,6 @@
 #include <functional>
 #include <math.h>
 #include <sstream>
-#include <string>
 
 namespace ha {
 namespace ptb {
@@ -47,7 +46,6 @@ class dezibel final
 {
 public:
     //-------------------------------------------------------------------------
-    using string_type                         = std::string const;
     using value_type                          = RealType;
     using fn_precision                        = std::function<i32(value_type)>;
     static value_type constexpr RECIPROCAL_20 = value_type(1.) / value_type(20.);
@@ -104,12 +102,8 @@ typename dezibel<RealType>::value_type dezibel<RealType>::to_normalized(value_ty
 
 //-----------------------------------------------------------------------------
 template <typename RealType>
-#if defined(_WIN32) // MSVS won't compile unless we put a 'const' after 'typename'
-typename const dezibel<RealType>::string_type
-#else
-typename dezibel<RealType>::string_type
-#endif
-dezibel<RealType>::to_string(value_type physical, fn_precision const& precision_func) const
+string_type dezibel<RealType>::to_string(value_type physical,
+                                         fn_precision const& precision_func) const
 {
     value_type const tmp_physical = clamp(physical, lo, hi);
     i32 const precision = precision_func ? precision_func(tmp_physical) : STANDARD_PRECISION;
