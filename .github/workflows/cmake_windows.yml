@@ -28,4 +28,4 @@ jobs:
     - name: Google Test
       working-directory: ${{github.workspace}}/build
       shell: bash
-      run: ./param-tool-box_test
+      run: param-tool-box_test.exe
