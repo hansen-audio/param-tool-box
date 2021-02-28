@@ -104,7 +104,11 @@ typename dezibel<RealType>::value_type dezibel<RealType>::to_normalized(value_ty
 
 //-----------------------------------------------------------------------------
 template <typename RealType>
+#if defined(_WIN32) // MSVS won't compile unless we put a 'const' after 'typename'
+typename const dezibel<RealType>::string_type
+#else
 typename dezibel<RealType>::string_type
+#endif
 dezibel<RealType>::to_string(value_type physical, fn_precision const& precision_func) const
 {
     value_type const tmp_physical = clamp(physical, lo, hi);
