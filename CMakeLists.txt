@@ -2,8 +2,6 @@ cmake_minimum_required(VERSION 3.14.0)
 
 include(FetchContent)
 
-set(CMAKE_CXX_STANDARD 17)
-
 project(ha-param-tool-box)
 
 add_subdirectory(external)
@@ -22,6 +20,11 @@ target_include_directories(param-tool-box
         ${CMAKE_CURRENT_LIST_DIR}/include
     PRIVATE
         ${CMAKE_CURRENT_LIST_DIR}/source
+)
+
+target_compile_features(param-tool-box
+    PUBLIC
+        cxx_std_17
 )
 
 enable_testing()
