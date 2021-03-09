@@ -2,6 +2,7 @@
 
 #pragma once
 
+#include "ha/param_tool_box/core/clamp.h"
 #include "ha/param_tool_box/core/types.h"
 #include <algorithm>
 #include <functional>
@@ -21,18 +22,6 @@ std::string to_string_with_precision(T const a_value, i32 const n = 6)
     out.precision(n);
     out << std::fixed << a_value;
     return out.str();
-}
-
-//-----------------------------------------------------------------------------
-template <class T>
-constexpr T const& clamp(T const& v, T const& lo, T const& hi)
-{
-#if __cplusplus < 201700
-    T const tmp_v = std::max(v, lo);
-    return std::min(tmp_v, hi);
-#else
-    return std::clamp(v, lo, hi);
-#endif
 }
 
 //-----------------------------------------------------------------------------
