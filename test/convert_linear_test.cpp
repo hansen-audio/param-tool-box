@@ -1,6 +1,7 @@
 // Copyright(c) 2021 Hansen Audio.
 
 #include "ha/param_tool_box/convert/linear.h"
+#include "ha/param_tool_box/convert/percent.h"
 
 #include "gtest/gtest.h"
 
@@ -15,8 +16,8 @@ static linear_float const linear_converter(0., 100.);
 //-----------------------------------------------------------------------------
 TEST(linear_test, convert_normalised_to_physical)
 {
-    EXPECT_FLOAT_EQ(linear_converter.to_physical(0.f), 0.f);
-    EXPECT_FLOAT_EQ(linear_converter.to_physical(1.f), 100.f);
+    EXPECT_FLOAT_EQ(linear_converter.to_physical(0.), 0.);
+    EXPECT_FLOAT_EQ(linear_converter.to_physical(1.), 100.);
 }
 
 //-----------------------------------------------------------------------------
@@ -41,6 +42,14 @@ TEST(linear_test, convert_to_string_with_precision)
     const auto precisionFunc = [](linear_float::value_type physical) { return 0; };
     EXPECT_EQ(linear_converter.to_string(0.5, precisionFunc), "0");
     EXPECT_EQ(linear_converter.to_string(50.3, precisionFunc), "50");
+}
+
+//-----------------------------------------------------------------------------
+TEST(percent_test, convert_normalised_to_percent)
+{
+    ha::ptb::convert::percent<float> percent_converter;
+    EXPECT_FLOAT_EQ(percent_converter.to_physical(0.), 0.);
+    EXPECT_FLOAT_EQ(percent_converter.to_physical(1.), 100.);
 }
 
 //-----------------------------------------------------------------------------
