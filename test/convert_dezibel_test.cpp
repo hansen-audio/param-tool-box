@@ -13,14 +13,14 @@ using fDezibel = ha::ptb::convert::dezibel<float>;
 static fDezibel const dB_converter(-96., 0.);
 
 //-----------------------------------------------------------------------------
-TEST(ParamToolBoxTest, testRampProcessor_convertNormToDezibel)
+TEST(dezibel_test, convert_normalised_to_physical)
 {
     EXPECT_FLOAT_EQ(dB_converter.to_physical(1.f), 0.f);
     EXPECT_FLOAT_EQ(dB_converter.to_physical(0.f), -96.f);
 }
 
 //-----------------------------------------------------------------------------
-TEST(ParamToolBoxTest, testRampProcessor_convertPhysicaltoString)
+TEST(dezibel_test, convert_physical_to_string)
 {
     EXPECT_EQ(dB_converter.to_string(0.), "0.00");
     EXPECT_EQ(dB_converter.to_string(-6.), "-6.00");
@@ -29,7 +29,7 @@ TEST(ParamToolBoxTest, testRampProcessor_convertPhysicaltoString)
 }
 
 //-----------------------------------------------------------------------------
-TEST(ParamToolBoxTest, testRampProcessor_convertStringtoPhysical)
+TEST(dezibel_test, convert_string_to_physical)
 {
     EXPECT_EQ(dB_converter.from_string("0"), 0.);
     EXPECT_EQ(dB_converter.from_string("-6"), -6.);
@@ -38,7 +38,7 @@ TEST(ParamToolBoxTest, testRampProcessor_convertStringtoPhysical)
 }
 
 //-----------------------------------------------------------------------------
-TEST(ParamToolBoxTest, testRampProcessorToStringPrecision)
+TEST(dezibel_test, convert_to_string_with_precision)
 {
     const auto precisionFunc = [](fDezibel::value_type physical) { return physical > -10 ? 2 : 1; };
     EXPECT_EQ(dB_converter.to_string(-6.54, precisionFunc), "-6.54");

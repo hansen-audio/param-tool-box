@@ -21,7 +21,7 @@ using ParamValueQueue = std::vector<ParamData>;
 
 namespace {
 //-----------------------------------------------------------------------------
-TEST(ParamToolBoxTest, testRampProcessor_invalidQueue)
+TEST(ramp_test, process_invalid_queue)
 {
     constexpr float kinit_val = 0.5f;
     i32 counter               = 0;
@@ -39,7 +39,7 @@ TEST(ParamToolBoxTest, testRampProcessor_invalidQueue)
 }
 
 //-----------------------------------------------------------------------------
-TEST(ParamToolBoxTest, testRampProcessor_noRampValueFromGUIEditor)
+TEST(ramp_test, no_ramp_value_from_gui_editor)
 {
     static ParamValueQueue const kvalue_queue = {{0, 0.75f}};
     constexpr float kinit_val                 = 0.5f;
@@ -67,7 +67,7 @@ TEST(ParamToolBoxTest, testRampProcessor_noRampValueFromGUIEditor)
 }
 
 //-----------------------------------------------------------------------------
-TEST(ParamToolBoxTest, testRampProcessor_oneRamp)
+TEST(ramp_test, one_ramp)
 {
     constexpr float kinit_val                 = 0.6f;
     static ParamValueQueue const kvalue_queue = {{0, kinit_val}, {4, 1.0f}};
@@ -95,7 +95,7 @@ TEST(ParamToolBoxTest, testRampProcessor_oneRamp)
     EXPECT_EQ(counter, 2);
 }
 //-----------------------------------------------------------------------------
-TEST(ParamToolBoxTest, testRampProcessor_twoRamps)
+TEST(ramp_test, two_ramps)
 {
     constexpr float kinit_val                 = 0.6f;
     static ParamValueQueue const kvalue_queue = {{0, kinit_val}, {4, 1.0f}, {9, 0.5f}};
