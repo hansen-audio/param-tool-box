@@ -11,6 +11,9 @@ add_library(param-tool-box STATIC
     include/ha/param_tool_box/core/clamp.h
     include/ha/param_tool_box/core/to_string.h
     include/ha/param_tool_box/convert/dezibel.h
+    include/ha/param_tool_box/convert/percent.h
+    include/ha/param_tool_box/convert/linear.h
+    include/ha/param_tool_box/convert/exponential.h
     include/ha/param_tool_box/process/ramp_processor.h
     include/ha/param_tool_box/process/ramp.h
     source/ramp.cpp
@@ -33,8 +36,10 @@ enable_testing()
 
 add_executable(param-tool-box_test
     test/convert_dezibel_test.cpp
+    test/convert_exponential_test.cpp
     test/convert_linear_test.cpp
     test/ramp_processor_test.cpp
+    test/log_scale_test.cpp
 )
 
 target_link_libraries(param-tool-box_test
