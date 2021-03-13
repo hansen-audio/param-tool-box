@@ -28,7 +28,7 @@ public:
     using fn_precision                  = std::function<i32(value_type)>;
     static i32 const STANDARD_PRECISION = 2;
 
-    linear(value_type lo, value_type hi);
+    linear(value_type min, value_type max);
 
     value_type to_physical(value_type normalized) const;
 
@@ -47,9 +47,9 @@ private:
 //  linear
 //-----------------------------------------------------------------------------
 template <typename RealType>
-linear<RealType>::linear(value_type lo, value_type hi)
+linear<RealType>::linear(value_type min, value_type max)
 {
-    context = detail::lin_scale<value_type>::create(lo, hi);
+    context = detail::lin_scale<value_type>::create(min, max);
 }
 
 //-----------------------------------------------------------------------------
