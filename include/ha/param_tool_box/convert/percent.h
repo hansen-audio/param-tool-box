@@ -15,16 +15,17 @@ namespace ha {
 namespace ptb {
 namespace convert {
 
+//-----------------------------------------------------------------------------
 /*
  * percent
  */
-template <typename T>
-class percent final : public linear<T>
+template <typename RealType>
+class percent final : public linear<RealType>
 {
 public:
     //-------------------------------------------------------------------------
     percent()
-    : linear<T>(0., 100.)
+    : linear<RealType>(0., 100.)
     {
     }
     //-------------------------------------------------------------------------

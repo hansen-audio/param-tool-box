@@ -2,6 +2,7 @@
 
 #pragma once
 
+#include "ha/param_tool_box/convert/lin_scale.h"
 #include "ha/param_tool_box/core/clamp.h"
 #include "ha/param_tool_box/core/to_string.h"
 #include "ha/param_tool_box/core/types.h"
@@ -14,6 +15,7 @@ namespace ha {
 namespace ptb {
 namespace convert {
 
+//-----------------------------------------------------------------------------
 /*
  * linear
  */
@@ -22,11 +24,9 @@ class linear
 {
 public:
     //-------------------------------------------------------------------------
-    using value_type                           = RealType;
-    using fn_precision                         = std::function<i32(value_type)>;
-    static i32 const STANDARD_PRECISION        = 2;
-    static constexpr value_type NOMRALIZED_MIN = 0.;
-    static constexpr value_type NOMRALIZED_MAX = 1.;
+    using value_type                    = RealType;
+    using fn_precision                  = std::function<i32(value_type)>;
+    static i32 const STANDARD_PRECISION = 2;
 
     linear(value_type lo, value_type hi);
 
@@ -40,8 +40,7 @@ public:
 
     //-------------------------------------------------------------------------
 private:
-    value_type lo = 10.;
-    value_type hi = 0.;
+    typename detail::lin_scale<value_type>::context_type context;
 };
 
 //-----------------------------------------------------------------------------
@@ -49,27 +48,26 @@ private:
 //-----------------------------------------------------------------------------
 template <typename RealType>
 linear<RealType>::linear(value_type lo, value_type hi)
-: lo(lo)
-, hi(hi)
 {
+    context = detail::lin_scale<value_type>::create(lo, hi);
 }
 
 //-----------------------------------------------------------------------------
 template <typename RealType>
 typename linear<RealType>::value_type linear<RealType>::to_physical(value_type normalized) const
 {
-    normalized = clamp(normalized, NOMRALIZED_MIN, NOMRALIZED_MAX);
+    normalized = clamp(normalized, context.norm_min, context.norm_max);
 
-    return normalized * hi + lo;
+    return detail::lin_scale<value_type>::scale(normalized, context);
 }
 
 //-----------------------------------------------------------------------------
 template <typename RealType>
 typename linear<RealType>::value_type linear<RealType>::to_normalized(value_type physical) const
 {
-    physical = clamp(physical, lo, hi);
+    physical = clamp(physical, context.phys_min, context.phys_max);
 
-    return (physical - lo) / (hi - lo);
+    return detail::lin_scale<value_type>::scale_inverted(physical, context);
 }
 
 //-----------------------------------------------------------------------------
@@ -77,7 +75,7 @@ template <typename RealType>
 string_type linear<RealType>::to_string(value_type physical,
                                         fn_precision const& precision_func) const
 {
-    value_type const tmp_physical = clamp(physical, lo, hi);
+    value_type const tmp_physical = clamp(physical, context.phys_min, context.phys_max);
     i32 const precision = precision_func ? precision_func(tmp_physical) : STANDARD_PRECISION;
 
     return to_string_with_precision(tmp_physical, precision);
@@ -91,7 +89,7 @@ linear<RealType>::from_string(string_type const& value_string) const
     // TODO: Make this more robust to non-digit inputs.
     value_type const value = std::stod(value_string);
 
-    return clamp(value, lo, hi);
+    return clamp(value, context.phys_min, context.phys_max);
 }
 
 //-----------------------------------------------------------------------------

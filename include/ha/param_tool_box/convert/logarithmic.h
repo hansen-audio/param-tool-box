@@ -6,14 +6,13 @@
 #include "ha/param_tool_box/core/clamp.h"
 #include "ha/param_tool_box/core/to_string.h"
 #include "ha/param_tool_box/core/types.h"
-
-#include <algorithm>
 #include <functional>
 
 namespace ha {
 namespace ptb {
 namespace convert {
 
+//-----------------------------------------------------------------------------
 /*
  * logarithmic
  */
@@ -38,7 +37,7 @@ public:
 
     //-------------------------------------------------------------------------
 private:
-    typename detail::log_scale<value_type>::context context;
+    typename detail::log_scale<value_type>::context_type context;
 };
 
 //-----------------------------------------------------------------------------
@@ -47,7 +46,7 @@ private:
 template <typename RealType>
 logarithmic<RealType>::logarithmic(value_type lo, value_type hi, value_type mid)
 {
-    context = detail::log_scale<RealType>::create(lo, hi, mid);
+    context = detail::log_scale<value_type>::create(lo, hi, mid);
 }
 
 //-----------------------------------------------------------------------------
@@ -55,8 +54,9 @@ template <typename RealType>
 typename logarithmic<RealType>::value_type
 logarithmic<RealType>::to_physical(value_type normalized) const
 {
-    normalized = clamp(normalized, RealType(0.), RealType(1.));
-    return detail::log_scale<RealType>::scale(normalized, context);
+    normalized = clamp(normalized, value_type(0.), value_type(1.));
+
+    return detail::log_scale<value_type>::scale(normalized, context);
 }
 
 //-----------------------------------------------------------------------------
@@ -66,7 +66,7 @@ logarithmic<RealType>::to_normalized(value_type physical) const
 {
     physical = clamp(physical, context.min, context.max);
 
-    return detail::log_scale<RealType>::scale_inverted(physical, context);
+    return detail::log_scale<value_type>::scale_inverted(physical, context);
 }
 
 //-----------------------------------------------------------------------------

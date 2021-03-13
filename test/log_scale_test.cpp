@@ -78,10 +78,8 @@ TEST(log_scale_test, scale_normalised_to_physical_negative_max)
 }
 
 //-----------------------------------------------------------------------------
-TEST(log_scale_test, scale_normalised_to_physical_negative_lfo)
+TEST(log_scale_test, scale_normalised_to_physical_lfo)
 {
-    constexpr float_t expected = 6.;
-
     auto context = log_scale_float::create(0.01f, 30.f, 1.f);
 
     EXPECT_FLOAT_EQ(log_scale_float::scale(1., context), 30.f);
@@ -89,5 +87,14 @@ TEST(log_scale_test, scale_normalised_to_physical_negative_lfo)
     EXPECT_FLOAT_EQ(log_scale_float::scale(0.5, context), 1.f);
 }
 
+//-----------------------------------------------------------------------------
+TEST(log_scale_test, scale_normalised_to_physical_lfo_max_min)
+{
+    auto context = log_scale_float::create(30.f, 0.01f, 1.f);
+
+    EXPECT_FLOAT_EQ(log_scale_float::scale(1., context), 0.01f);
+    EXPECT_FLOAT_EQ(log_scale_float::scale(0., context), 30.f);
+    EXPECT_FLOAT_EQ(log_scale_float::scale(0.5, context), 1.f);
+}
 //-----------------------------------------------------------------------------
 } // namespace
