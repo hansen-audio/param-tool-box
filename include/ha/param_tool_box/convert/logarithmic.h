@@ -9,17 +9,16 @@
 
 #include <algorithm>
 #include <functional>
-#include <math.h>
 
 namespace ha {
 namespace ptb {
 namespace convert {
 
 /*
- * exponential
+ * logarithmic
  */
 template <typename RealType>
-class exponential final
+class logarithmic final
 {
 public:
     //-------------------------------------------------------------------------
@@ -27,7 +26,7 @@ public:
     using fn_precision                  = std::function<i32(value_type)>;
     static i32 const STANDARD_PRECISION = 2;
 
-    exponential(value_type lo, value_type hi, value_type mid);
+    logarithmic(value_type lo, value_type hi, value_type mid);
 
     value_type to_physical(value_type normalized) const;
 
@@ -43,18 +42,18 @@ private:
 };
 
 //-----------------------------------------------------------------------------
-//  exponential
+//  logarithmic
 //-----------------------------------------------------------------------------
 template <typename RealType>
-exponential<RealType>::exponential(value_type lo, value_type hi, value_type mid)
+logarithmic<RealType>::logarithmic(value_type lo, value_type hi, value_type mid)
 {
     context = detail::log_scale<RealType>::create(lo, hi, mid);
 }
 
 //-----------------------------------------------------------------------------
 template <typename RealType>
-typename exponential<RealType>::value_type
-exponential<RealType>::to_physical(value_type normalized) const
+typename logarithmic<RealType>::value_type
+logarithmic<RealType>::to_physical(value_type normalized) const
 {
     normalized = clamp(normalized, RealType(0.), RealType(1.));
     return detail::log_scale<RealType>::scale(normalized, context);
@@ -62,8 +61,8 @@ exponential<RealType>::to_physical(value_type normalized) const
 
 //-----------------------------------------------------------------------------
 template <typename RealType>
-typename exponential<RealType>::value_type
-exponential<RealType>::to_normalized(value_type physical) const
+typename logarithmic<RealType>::value_type
+logarithmic<RealType>::to_normalized(value_type physical) const
 {
     physical = clamp(physical, context.min, context.max);
 
@@ -72,7 +71,7 @@ exponential<RealType>::to_normalized(value_type physical) const
 
 //-----------------------------------------------------------------------------
 template <typename RealType>
-string_type exponential<RealType>::to_string(value_type physical,
+string_type logarithmic<RealType>::to_string(value_type physical,
                                              fn_precision const& precision_func) const
 {
     value_type const tmp_physical = clamp(physical, context.min, context.max);
@@ -83,8 +82,8 @@ string_type exponential<RealType>::to_string(value_type physical,
 
 //-----------------------------------------------------------------------------
 template <typename RealType>
-typename exponential<RealType>::value_type
-exponential<RealType>::from_string(string_type const& value_string) const
+typename logarithmic<RealType>::value_type
+logarithmic<RealType>::from_string(string_type const& value_string) const
 {
     // TODO: Make this more robust to non-digit inputs.
     value_type const value = std::stod(value_string);

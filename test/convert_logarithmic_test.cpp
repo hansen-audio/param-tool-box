@@ -1,6 +1,6 @@
 // Copyright(c) 2021 Hansen Audio.
 
-#include "ha/param_tool_box/convert/exponential.h"
+#include "ha/param_tool_box/convert/logarithmic.h"
 
 #include "gtest/gtest.h"
 
@@ -9,10 +9,10 @@
 namespace {
 
 //-----------------------------------------------------------------------------
-using converter_type = ha::ptb::convert::exponential<float>;
+using converter_type = ha::ptb::convert::logarithmic<float>;
 
 //-----------------------------------------------------------------------------
-TEST(exponential_test, convert_normalised_to_physical)
+TEST(logarithmic_test, convert_normalised_to_physical)
 {
     static converter_type const converter(0.01f, 30.f, 1.f);
     EXPECT_FLOAT_EQ(converter.to_physical(1.f), 30.f);
@@ -21,7 +21,7 @@ TEST(exponential_test, convert_normalised_to_physical)
 }
 
 //-----------------------------------------------------------------------------
-TEST(exponential_test, convert_physical_to_string)
+TEST(logarithmic_test, convert_physical_to_string)
 {
     static converter_type const converter(0.001f, 4.f, 0.25f);
     EXPECT_FLOAT_EQ(converter.to_physical(1.f), 4.f);
@@ -30,7 +30,7 @@ TEST(exponential_test, convert_physical_to_string)
 }
 
 //-----------------------------------------------------------------------------
-TEST(exponential_test, convert_to_physical_negative)
+TEST(logarithmic_test, convert_to_physical_negative)
 {
     static converter_type const converter(-96.f, 6.f, 0.f);
     EXPECT_FLOAT_EQ(converter.to_physical(1.f), 6.f);
