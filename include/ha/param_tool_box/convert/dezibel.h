@@ -24,10 +24,9 @@ class dezibel final
 {
 public:
     //-------------------------------------------------------------------------
-    using value_type                          = RealType;
-    using fn_precision                        = std::function<i32(value_type)>;
-    static value_type constexpr RECIPROCAL_20 = value_type(1.) / value_type(20.);
-    static i32 const STANDARD_PRECISION       = 2;
+    using value_type                    = RealType;
+    using fn_precision                  = std::function<i32(value_type)>;
+    static i32 const STANDARD_PRECISION = 2;
 
     dezibel(value_type min, value_type max);
 
