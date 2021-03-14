@@ -34,4 +34,25 @@ TEST(string_list_test, convert_normalised_to_physical)
 }
 
 //-----------------------------------------------------------------------------
+TEST(string_list_test, convert_normalised_to_string_min)
+{
+    float_t const phys = converter.to_physical(0.);
+    EXPECT_EQ(converter.to_string(phys), "Instant");
+}
+
+//-----------------------------------------------------------------------------
+TEST(string_list_test, convert_normalised_to_string_max)
+{
+    float_t const phys = converter.to_physical(1.);
+    EXPECT_EQ(converter.to_string(phys), "4");
+}
+
+//-----------------------------------------------------------------------------
+TEST(string_list_test, convert_normalised_to_string_mid)
+{
+    float_t const phys = converter.to_physical(.5);
+    EXPECT_EQ(converter.to_string(phys), "1/2");
+}
+
+//-----------------------------------------------------------------------------
 } // namespace

@@ -39,6 +39,7 @@ public:
 
     //-------------------------------------------------------------------------
 private:
+    value_type round(value_type x) const;
     typename detail::lin_scale<value_type>::context_type context;
     StringListType m_string_list;
 };
@@ -61,8 +62,7 @@ string_list<RealType, StringListType>::to_physical(value_type normalized) const
     normalized = clamp(normalized, context.norm_min, context.norm_max);
 
     value_type rounded = detail::lin_scale<value_type>::scale(normalized, context);
-    rounded            = static_cast<value_type>(static_cast<i32>(rounded + 0.5));
-    return rounded;
+    return round(rounded);
 }
 
 //-----------------------------------------------------------------------------
@@ -80,7 +80,10 @@ template <typename RealType, typename StringListType>
 string_type string_list<RealType, StringListType>::to_string(value_type physical,
                                                              fn_precision const&) const
 {
-    return {};
+    i32 const index = static_cast<i32>(physical);
+
+    string_type const tmp(m_string_list.at(index));
+    return tmp;
 }
 
 //-----------------------------------------------------------------------------
@@ -91,6 +94,13 @@ string_list<RealType, StringListType>::from_string(string_type const& value_stri
     return 0.;
 }
 
+//-----------------------------------------------------------------------------
+template <typename RealType, typename StringListType>
+typename string_list<RealType, StringListType>::value_type
+string_list<RealType, StringListType>::round(value_type x) const
+{
+    return static_cast<value_type>(static_cast<i32>(x + RealType(0.5)));
+}
 //-----------------------------------------------------------------------------
 } // namespace convert
 } // namespace ptb
