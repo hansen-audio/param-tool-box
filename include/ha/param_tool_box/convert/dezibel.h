@@ -7,7 +7,6 @@
 #include "ha/param_tool_box/core/to_string.h"
 #include "ha/param_tool_box/core/types.h"
 
-#include <algorithm>
 #include <functional>
 #include <math.h>
 

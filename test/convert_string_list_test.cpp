@@ -5,8 +5,9 @@
 #include <array>
 
 namespace {
-
 //-----------------------------------------------------------------------------
+using float_t = float;
+
 // clang-format off
 using string_view_list = std::array<std::string_view, 9>;
 static constexpr string_view_list delay_fade_note_length_strings = {

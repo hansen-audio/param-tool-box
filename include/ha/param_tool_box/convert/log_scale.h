@@ -2,14 +2,6 @@
 
 #pragma once
 
-#include "ha/param_tool_box/core/clamp.h"
-#include "ha/param_tool_box/core/to_string.h"
-#include "ha/param_tool_box/core/types.h"
-
-#include <algorithm>
-#include <functional>
-#include <math.h>
-
 namespace ha {
 namespace ptb {
 namespace convert {
@@ -62,7 +54,7 @@ public:
         return value_type(-1.0) /
                ((value_type(1.0) / output - value_type(1.0)) / context.a - value_type(1.0));
     }
-}; // namespace detail
+};
 
 //-----------------------------------------------------------------------------
 } // namespace detail

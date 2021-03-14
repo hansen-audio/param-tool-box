@@ -1,14 +1,13 @@
 // Copyright(c) 2021 Hansen Audio.
 
 #include "ha/param_tool_box/convert/log_scale.h"
-
 #include "gtest/gtest.h"
-
 #include <vector>
 
 namespace {
 
 //-----------------------------------------------------------------------------
+using float_t         = float;
 using log_scale_float = ha::ptb::convert::detail::log_scale<float_t>;
 
 //-----------------------------------------------------------------------------
