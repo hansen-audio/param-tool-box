@@ -23,7 +23,8 @@ class dezibel final
 {
 public:
     //-------------------------------------------------------------------------
-    using value_type                    = RealType;
+    using value_type                    = RealType const;
+    using mut_value_type                = RealType;
     using fn_precision                  = std::function<i32(value_type)>;
     static i32 const STANDARD_PRECISION = 2;
 
@@ -39,7 +40,8 @@ public:
 
     //-------------------------------------------------------------------------
 private:
-    typename detail::db_scale<value_type>::context_type context;
+    using scale_type = detail::db_scale<mut_value_type>;
+    typename scale_type::context_type context;
 };
 
 //-----------------------------------------------------------------------------
@@ -48,25 +50,25 @@ private:
 template <typename RealType>
 dezibel<RealType>::dezibel(value_type min, value_type max)
 {
-    context = detail::db_scale<value_type>::create(min, max);
+    context = scale_type::create(min, max);
 }
 
 //-----------------------------------------------------------------------------
 template <typename RealType>
 typename dezibel<RealType>::value_type dezibel<RealType>::to_physical(value_type normalized) const
 {
-    normalized = clamp(normalized, context.norm_min, context.norm_max);
+    value_type clamped = clamp(normalized, context.norm_min, context.norm_max);
 
-    return detail::db_scale<value_type>::scale(normalized, context);
+    return scale_type::scale(clamped, context);
 }
 
 //-----------------------------------------------------------------------------
 template <typename RealType>
 typename dezibel<RealType>::value_type dezibel<RealType>::to_normalized(value_type physical) const
 {
-    physical = clamp(physical, context.db_min, context.db_max);
+    value_type clamped = clamp(physical, context.db_min, context.db_max);
 
-    return detail::db_scale<value_type>::scale_inverted(physical, context);
+    return scale_type::scale_inverted(clamped, context);
 }
 
 //-----------------------------------------------------------------------------
@@ -87,7 +89,7 @@ typename dezibel<RealType>::value_type
 dezibel<RealType>::from_string(string_type const& value_string) const
 {
     // TODO: Make this more robust to non-digit inputs.
-    value_type const value =
+    value_type value =
         value_string == "-inf" ? context.db_min : value_type(std::stod(value_string));
 
     return clamp(value, context.db_min, context.db_max);

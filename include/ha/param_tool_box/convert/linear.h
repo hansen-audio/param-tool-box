@@ -20,7 +20,8 @@ class linear
 {
 public:
     //-------------------------------------------------------------------------
-    using value_type                    = RealType;
+    using value_type                    = RealType const;
+    using mut_value_type                = RealType;
     using fn_precision                  = std::function<i32(value_type)>;
     static i32 const STANDARD_PRECISION = 2;
 
@@ -36,7 +37,8 @@ public:
 
     //-------------------------------------------------------------------------
 private:
-    typename detail::lin_scale<value_type>::context_type context;
+    using scale_type = detail::lin_scale<mut_value_type>;
+    typename scale_type::context_type context;
 };
 
 //-----------------------------------------------------------------------------
@@ -45,25 +47,25 @@ private:
 template <typename RealType>
 linear<RealType>::linear(value_type min, value_type max)
 {
-    context = detail::lin_scale<value_type>::create(min, max);
+    context = scale_type::create(min, max);
 }
 
 //-----------------------------------------------------------------------------
 template <typename RealType>
 typename linear<RealType>::value_type linear<RealType>::to_physical(value_type normalized) const
 {
-    normalized = clamp(normalized, context.norm_min, context.norm_max);
+    value_type clamped = clamp(normalized, context.norm_min, context.norm_max);
 
-    return detail::lin_scale<value_type>::scale(normalized, context);
+    return scale_type::scale(clamped, context);
 }
 
 //-----------------------------------------------------------------------------
 template <typename RealType>
 typename linear<RealType>::value_type linear<RealType>::to_normalized(value_type physical) const
 {
-    physical = clamp(physical, context.phys_min, context.phys_max);
+    value_type clamped = clamp(physical, context.phys_min, context.phys_max);
 
-    return detail::lin_scale<value_type>::scale_inverted(physical, context);
+    return scale_type::scale_inverted(clamped, context);
 }
 
 //-----------------------------------------------------------------------------
@@ -71,8 +73,8 @@ template <typename RealType>
 string_type linear<RealType>::to_string(value_type physical,
                                         fn_precision const& precision_func) const
 {
-    value_type const tmp_physical = clamp(physical, context.phys_min, context.phys_max);
-    i32 const precision = precision_func ? precision_func(tmp_physical) : STANDARD_PRECISION;
+    value_type tmp_physical = clamp(physical, context.phys_min, context.phys_max);
+    i32 const precision     = precision_func ? precision_func(tmp_physical) : STANDARD_PRECISION;
 
     return to_string_with_precision(tmp_physical, precision);
 }

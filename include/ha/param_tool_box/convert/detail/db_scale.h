@@ -18,18 +18,19 @@ class db_scale final
 {
 public:
     //-------------------------------------------------------------------------
-    using value_type = RealType;
+    using value_type     = RealType const;
+    using mut_value_type = RealType;
 
     struct context_type
     {
-        value_type norm_min = value_type(0.);
-        value_type norm_max = value_type(0.);
-        value_type db_min   = value_type(0.);
-        value_type db_max   = value_type(0.);
-        value_type inv_20   = value_type(0.);
+        mut_value_type norm_min = value_type(0.);
+        mut_value_type norm_max = value_type(0.);
+        mut_value_type db_min   = value_type(0.);
+        mut_value_type db_max   = value_type(0.);
+        mut_value_type inv_20   = value_type(0.);
     };
 
-    static constexpr context_type create(value_type const min, value_type const max)
+    static constexpr context_type create(value_type min, value_type max)
     {
         value_type const BASE           = value_type(10.);
         value_type const NOMRALIZED_MAX = value_type(1.);
@@ -39,12 +40,12 @@ public:
         return {NOMRALIZED_MIN, NOMRALIZED_MAX, min, max, value_type(1. / 20.)};
     }
 
-    static constexpr value_type scale(value_type const input, context_type const& context)
+    static constexpr value_type scale(value_type input, context_type const& context)
     {
         return value_type(20.) * log10(input);
     }
 
-    static constexpr value_type scale_inverted(value_type const input, context_type const& context)
+    static constexpr value_type scale_inverted(value_type input, context_type const& context)
     {
         return pow(value_type(10.), context.INV_20 * input);
     }

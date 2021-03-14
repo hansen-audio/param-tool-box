@@ -21,7 +21,8 @@ class logarithmic final
 {
 public:
     //-------------------------------------------------------------------------
-    using value_type                    = RealType;
+    using value_type                    = RealType const;
+    using mut_value_type                = RealType;
     using fn_precision                  = std::function<i32(value_type)>;
     static i32 const STANDARD_PRECISION = 2;
 
@@ -37,7 +38,8 @@ public:
 
     //-------------------------------------------------------------------------
 private:
-    typename detail::log_scale<value_type>::context_type context;
+    using scale_type = detail::log_scale<mut_value_type>;
+    typename scale_type::context_type context;
 };
 
 //-----------------------------------------------------------------------------
@@ -46,7 +48,7 @@ private:
 template <typename RealType>
 logarithmic<RealType>::logarithmic(value_type lo, value_type hi, value_type mid)
 {
-    context = detail::log_scale<value_type>::create(lo, hi, mid);
+    context = scale_type::create(lo, hi, mid);
 }
 
 //-----------------------------------------------------------------------------
@@ -54,9 +56,9 @@ template <typename RealType>
 typename logarithmic<RealType>::value_type
 logarithmic<RealType>::to_physical(value_type normalized) const
 {
-    normalized = clamp(normalized, value_type(0.), value_type(1.));
+    value_type clamped = clamp(normalized, value_type(0.), value_type(1.));
 
-    return detail::log_scale<value_type>::scale(normalized, context);
+    return scale_type::scale(clamped, context);
 }
 
 //-----------------------------------------------------------------------------
@@ -64,9 +66,9 @@ template <typename RealType>
 typename logarithmic<RealType>::value_type
 logarithmic<RealType>::to_normalized(value_type physical) const
 {
-    physical = clamp(physical, context.min, context.max);
+    value_type clamped = clamp(physical, context.min, context.max);
 
-    return detail::log_scale<value_type>::scale_inverted(physical, context);
+    return scale_type::scale_inverted(clamped, context);
 }
 
 //-----------------------------------------------------------------------------
@@ -74,8 +76,8 @@ template <typename RealType>
 string_type logarithmic<RealType>::to_string(value_type physical,
                                              fn_precision const& precision_func) const
 {
-    value_type const tmp_physical = clamp(physical, context.min, context.max);
-    i32 const precision = precision_func ? precision_func(tmp_physical) : STANDARD_PRECISION;
+    value_type tmp_physical = clamp(physical, context.min, context.max);
+    i32 const precision     = precision_func ? precision_func(tmp_physical) : STANDARD_PRECISION;
 
     return to_string_with_precision(tmp_physical, precision);
 }
@@ -86,7 +88,7 @@ typename logarithmic<RealType>::value_type
 logarithmic<RealType>::from_string(string_type const& value_string) const
 {
     // TODO: Make this more robust to non-digit inputs.
-    value_type const value = std::stod(value_string);
+    value_type value = std::stod(value_string);
 
     return clamp(value, context.min, context.max);
 }
