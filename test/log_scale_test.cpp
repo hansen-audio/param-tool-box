@@ -1,6 +1,6 @@
 // Copyright(c) 2021 Hansen Audio.
 
-#include "ha/param_tool_box/convert/log_scale.h"
+#include "ha/param_tool_box/convert/detail/log_scale.h"
 #include "gtest/gtest.h"
 #include <vector>
 

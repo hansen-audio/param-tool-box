@@ -2,7 +2,7 @@
 
 #pragma once
 
-#include "ha/param_tool_box/convert/log_scale.h"
+#include "ha/param_tool_box/convert/detail/log_scale.h"
 #include "ha/param_tool_box/core/clamp.h"
 #include "ha/param_tool_box/core/to_string.h"
 #include "ha/param_tool_box/core/types.h"

@@ -2,14 +2,10 @@
 
 #pragma once
 
-#include "ha/param_tool_box/convert/lin_scale.h"
+#include "ha/param_tool_box/convert/detail/lin_scale.h"
 #include "ha/param_tool_box/core/clamp.h"
 #include "ha/param_tool_box/core/to_string.h"
 #include "ha/param_tool_box/core/types.h"
-
-//#include <algorithm>
-//#include <functional>
-//#include <math.h>
 
 namespace ha {
 namespace ptb {
@@ -91,6 +87,7 @@ template <typename RealType, typename StringListType>
 typename string_list<RealType, StringListType>::value_type
 string_list<RealType, StringListType>::from_string(string_type const& value_string) const
 {
+    // TODO
     return 0.;
 }
 
