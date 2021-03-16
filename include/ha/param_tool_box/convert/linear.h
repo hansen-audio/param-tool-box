@@ -12,7 +12,7 @@ namespace ptb {
 namespace convert {
 
 //-----------------------------------------------------------------------------
-/*
+/**
  * linear
  */
 template <typename RealType>

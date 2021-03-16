@@ -8,7 +8,7 @@ namespace convert {
 namespace detail {
 
 //-----------------------------------------------------------------------------
-/*
+/**
  *  lin_scale
  */
 template <typename RealType>

@@ -12,7 +12,7 @@ namespace ptb {
 namespace convert {
 
 //-----------------------------------------------------------------------------
-/*
+/**
  * string_list
  */
 template <typename RealType, typename StringListType>

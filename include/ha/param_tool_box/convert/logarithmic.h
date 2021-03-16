@@ -13,7 +13,7 @@ namespace ptb {
 namespace convert {
 
 //-----------------------------------------------------------------------------
-/*
+/**
  * logarithmic
  */
 template <typename RealType>

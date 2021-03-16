@@ -10,7 +10,7 @@ namespace convert {
 namespace detail {
 
 //-----------------------------------------------------------------------------
-/*
+/**
  *  db_scale
  */
 template <typename RealType>

@@ -9,7 +9,7 @@ namespace ptb {
 namespace convert {
 
 //-----------------------------------------------------------------------------
-/*
+/**
  * percent
  */
 template <typename RealType>

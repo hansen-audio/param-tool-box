@@ -15,7 +15,7 @@ namespace ptb {
 namespace convert {
 
 //-----------------------------------------------------------------------------
-/*
+/**
  * dezibel
  */
 template <typename RealType>
