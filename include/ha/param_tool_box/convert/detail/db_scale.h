@@ -47,7 +47,7 @@ public:
 
     static constexpr value_type scale_inverted(value_type input, context_type const& context)
     {
-        return pow(value_type(10.), context.INV_20 * input);
+        return pow(value_type(10.), context.inv_20 * input);
     }
 };
 
