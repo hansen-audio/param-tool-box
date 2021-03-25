@@ -16,9 +16,9 @@ std::string to_string_with_precision(T const value, i32 const precision = 6)
 {
     T val = value;
 
-    T const multiplier = std::pow(T(10), T(precision));
+    T const multiplier = pow(T(10), T(precision));
     val *= multiplier;
-    val = std::round(val);
+    val = round(val);
     val /= multiplier;
 
     std::ostringstream out;
