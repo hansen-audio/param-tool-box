@@ -86,7 +86,7 @@ typename linear<RealType>::value_type
 linear<RealType>::from_string(string_type const& value_string) const
 {
     // TODO: Make this more robust to non-digit inputs.
-    value_type const value = std::stod(value_string);
+    value_type const value = static_cast<value_type>(std::stod(value_string));
 
     return clamp(value, context.phys_min, context.phys_max);
 }
