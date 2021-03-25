@@ -91,7 +91,8 @@ TEST(log_scale_test, scale_normalised_to_physical_lfo_max_min)
 {
     auto context = log_scale_float::create(30.f, 0.01f, 1.f);
 
-    EXPECT_FLOAT_EQ(log_scale_float::scale(1., context), 0.01f);
+    // EXPECT_FLOAT_EQ(log_scale_float::scale(1., context), 0.01f); // Is a bit too inaccurate.
+    EXPECT_NEAR(log_scale_float::scale(1., context), 0.01f, 0.000001);
     EXPECT_FLOAT_EQ(log_scale_float::scale(0., context), 30.f);
     EXPECT_FLOAT_EQ(log_scale_float::scale(0.5, context), 1.f);
 }

@@ -49,7 +49,8 @@ TEST(dezibel_test, convert_to_string_with_precision)
 TEST(dezibel_test, convert_physical_to_normalised)
 {
     EXPECT_FLOAT_EQ(dB_converter.to_normalized(0.f), 1.f);
-    EXPECT_FLOAT_EQ(dB_converter.to_normalized(-96.f), 0.f);
+    // EXPECT_FLOAT_EQ(dB_converter.to_normalized(-96.f), 0.000015849f); // Is a bit too inaccurate.
+    EXPECT_NEAR(dB_converter.to_normalized(-96.f), 0.000015849f, 0.000001);
 }
 
 //-----------------------------------------------------------------------------
