@@ -28,16 +28,16 @@ static string_list_float const converter(delay_fade_note_length_strings);
 //-----------------------------------------------------------------------------
 TEST(string_list_test, convert_normalised_to_physical)
 {
-    EXPECT_FLOAT_EQ(converter.to_physical(0.), 0.);
-    EXPECT_FLOAT_EQ(converter.to_physical(0.4), 3.);
-    EXPECT_FLOAT_EQ(converter.to_physical(0.5), 4.);
-    EXPECT_FLOAT_EQ(converter.to_physical(1.0), 8.);
+    EXPECT_FLOAT_EQ(converter.to_physical(0.f), 0.f);
+    EXPECT_FLOAT_EQ(converter.to_physical(0.4f), 3.f);
+    EXPECT_FLOAT_EQ(converter.to_physical(0.5f), 4.f);
+    EXPECT_FLOAT_EQ(converter.to_physical(1.0f), 8.f);
 }
 
 //-----------------------------------------------------------------------------
 TEST(string_list_test, convert_normalised_to_string_min)
 {
-    float_t const phys = converter.to_physical(0.);
+    float_t const phys = converter.to_physical(0.f);
     EXPECT_EQ(converter.to_string(phys), "Instant");
 }
 
