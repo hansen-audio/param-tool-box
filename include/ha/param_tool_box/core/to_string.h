@@ -11,11 +11,24 @@ namespace convert {
 
 //-----------------------------------------------------------------------------
 template <typename T>
-std::string to_string_with_precision(T const a_value, i32 const n = 6)
+std::string to_string_with_precision(T const value, i32 const precision = 6)
 {
+    T val = value;
+
+#if _WIN32
+    /**
+     * On Windows 'out << std::fixed << val;' rounds whereas on macOS and Linux
+     * it truncates. Therefore, round beforehand on Windows.
+     */
+    T const multiplier = pow(T(10), T(precision));
+    val *= multiplier;
+    val = std::trunc(val);
+    val /= multiplier;
+#endif
+
     std::ostringstream out;
-    out.precision(n);
-    out << std::fixed << a_value;
+    out.precision(precision);
+    out << std::fixed << val;
     return out.str();
 }
 
