@@ -40,7 +40,7 @@ TEST(linear_test, convert_string_to_physical)
 TEST(linear_test, convert_to_string_with_precision)
 {
     const auto precisionFunc = [](linear_float::value_type physical) { return 0; };
-    EXPECT_EQ(linear_converter.to_string(0.5, precisionFunc), "0");
+    EXPECT_EQ(linear_converter.to_string(0.5, precisionFunc), "1");
     EXPECT_EQ(linear_converter.to_string(50.3, precisionFunc), "50");
 }
 
