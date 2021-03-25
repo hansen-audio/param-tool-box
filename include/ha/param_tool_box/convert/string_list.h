@@ -6,6 +6,7 @@
 #include "ha/param_tool_box/core/clamp.h"
 #include "ha/param_tool_box/core/to_string.h"
 #include "ha/param_tool_box/core/types.h"
+#include <functional>
 
 namespace ha {
 namespace ptb {
