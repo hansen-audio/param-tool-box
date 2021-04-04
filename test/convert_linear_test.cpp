@@ -45,6 +45,14 @@ TEST(linear_test, convert_to_string_with_precision)
 }
 
 //-----------------------------------------------------------------------------
+TEST(linear_test, convert_min_bigger_max)
+{
+    static linear_float const linear_converter(100., 0.);
+    const auto precisionFunc = [](linear_float::value_type physical) { return 0; };
+    EXPECT_EQ(linear_converter.to_string(50, precisionFunc), "50");
+}
+
+//-----------------------------------------------------------------------------
 TEST(percent_test, convert_normalised_to_percent)
 {
     ha::ptb::convert::percent<float> percent_converter;

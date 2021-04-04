@@ -30,6 +30,15 @@ TEST(logarithmic_test, convert_physical_to_string)
 }
 
 //-----------------------------------------------------------------------------
+TEST(logarithmic_test, convert_physical_to_string_with_lo_bigger_hi)
+{
+    static converter_type const converter(4.f, 0.001f, 0.25f);
+    EXPECT_NEAR(converter.to_physical(1.f), 0.001f, 0.00011);
+    EXPECT_FLOAT_EQ(converter.to_physical(0.f), 4.f);
+    EXPECT_NEAR(converter.to_physical(0.5f), 0.25f, 0.00001);
+}
+
+//-----------------------------------------------------------------------------
 TEST(logarithmic_test, convert_to_physical_negative)
 {
     static converter_type const converter(-96.f, 6.f, 0.f);
