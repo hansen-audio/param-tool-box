@@ -13,7 +13,7 @@ namespace convert {
  * @brief clamp, see also std::clamp which is available sind c++17
  */
 template <class T>
-constexpr T const& clamp(T const& v, T const& lo, T const& hi)
+constexpr T const clamp(T const& v, T const& lo, T const& hi)
 {
     // For the case if lo > hi
     T const tmp_lo = std::min(lo, hi);
