@@ -26,7 +26,7 @@ public:
     // using Func = std::function<bool(i32 /*index*/, i32& /*offset*/, mut_value_type& /*value*/)>;
     using fn_value_queue = Func;
 
-    ramp_processor(fn_value_queue queue, value_type init);
+    ramp_processor(fn_value_queue queue);
 
     value_type advance();
     value_type get_value() const;
@@ -47,10 +47,10 @@ private:
 // ramp_processor
 //------------------------------------------------------------------------
 template <typename Func>
-ramp_processor<Func>::ramp_processor(fn_value_queue queueFunc, value_type init)
+ramp_processor<Func>::ramp_processor(fn_value_queue queueFunc)
 : queue_func(std::move(queueFunc))
-, current_ramp({init, init, 0})
-, x(init)
+, current_ramp({0., 0., 0})
+, x(0.)
 {
     more_ramps = prepare_ramp(0);
 }
@@ -106,6 +106,7 @@ bool ramp_processor<Func>::prepare_ramp(i32 index)
 
     i32 const duration = (offset1 - offset0);
     current_ramp       = ramp(val0, val1, duration);
+    x                  = val0;
     return true;
 }
 
