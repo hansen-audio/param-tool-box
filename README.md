@@ -39,8 +39,7 @@ Steinberg::tresult MyPlugin::process(Vst::ProcessData & data)
                     return false;
             }
             return true;
-        },
-        gainValue);
+        });
 
     if (!data.outputs || !data.inputs)
         return kResultOk;
