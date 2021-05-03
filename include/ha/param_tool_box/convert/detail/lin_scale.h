@@ -34,7 +34,7 @@ public:
 
     static constexpr value_type scale(value_type input, context_type const& context)
     {
-        return input * context.phys_max + context.phys_min;
+        return input * (context.phys_max - context.phys_min) + context.phys_min;
     }
 
     static constexpr value_type scale_inverted(value_type input, context_type const& context)
