@@ -8,9 +8,7 @@
 #include "ha/param_tool_box/core/types.h"
 #include <functional>
 
-namespace ha {
-namespace ptb {
-namespace convert {
+namespace ha::ptb::convert {
 
 //-----------------------------------------------------------------------------
 /**
@@ -103,6 +101,4 @@ string_list<RealType, StringListType>::round(value_type x) const
     return static_cast<value_type>(static_cast<i32>(x + RealType(0.5)));
 }
 //-----------------------------------------------------------------------------
-} // namespace convert
-} // namespace ptb
-} // namespace ha
+} // namespace ha::ptb::convert

@@ -4,8 +4,7 @@
 #include <algorithm>
 #include <math.h>
 
-namespace ha {
-namespace ptb {
+namespace ha::ptb {
 namespace {
 
 //------------------------------------------------------------------------
@@ -57,5 +56,4 @@ bool ramp::is_done(value_type x) const
 }
 
 //-----------------------------------------------------------------------------
-} // namespace ptb
-} // namespace ha
+} // namespace ha::ptb

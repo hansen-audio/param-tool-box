@@ -4,10 +4,7 @@
 
 #include <math.h>
 
-namespace ha {
-namespace ptb {
-namespace convert {
-namespace detail {
+namespace ha::ptb::convert::detail {
 
 //-----------------------------------------------------------------------------
 /**
@@ -52,7 +49,4 @@ public:
 };
 
 //-----------------------------------------------------------------------------
-} // namespace detail
-} // namespace convert
-} // namespace ptb
-} // namespace ha
+} // namespace ha::ptb::convert::detail

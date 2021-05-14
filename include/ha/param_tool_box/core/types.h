@@ -5,8 +5,7 @@
 #include <cstdint>
 #include <string>
 
-namespace ha {
-namespace ptb {
+namespace ha::ptb {
 
 //-----------------------------------------------------------------------------
 using i32 = std::int32_t;
@@ -15,5 +14,4 @@ namespace convert {
 using string_type = std::string const;
 }
 //-----------------------------------------------------------------------------
-} // namespace ptb
-} // namespace ha
+} // namespace ha::ptb

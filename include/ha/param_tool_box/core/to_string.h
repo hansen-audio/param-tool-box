@@ -6,9 +6,7 @@
 #include <math.h>
 #include <sstream>
 
-namespace ha {
-namespace ptb {
-namespace convert {
+namespace ha::ptb::convert {
 
 //-----------------------------------------------------------------------------
 template <typename T>
@@ -28,6 +26,4 @@ std::string to_string_with_precision(T const value, i32 const precision = 6)
 }
 
 //-----------------------------------------------------------------------------
-} // namespace convert
-} // namespace ptb
-} // namespace ha
+} // namespace ha::ptb::convert

@@ -8,9 +8,7 @@
 #include "ha/param_tool_box/core/types.h"
 #include <functional>
 
-namespace ha {
-namespace ptb {
-namespace convert {
+namespace ha::ptb::convert {
 
 //-----------------------------------------------------------------------------
 /**
@@ -94,6 +92,4 @@ logarithmic<RealType>::from_string(string_type const& value_string) const
 }
 
 //-----------------------------------------------------------------------------
-} // namespace convert
-} // namespace ptb
-} // namespace ha
+} // namespace ha::ptb::convert

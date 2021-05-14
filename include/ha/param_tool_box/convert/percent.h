@@ -4,9 +4,7 @@
 
 #include "ha/param_tool_box/convert/linear.h"
 
-namespace ha {
-namespace ptb {
-namespace convert {
+namespace ha::ptb::convert {
 
 //-----------------------------------------------------------------------------
 /**
@@ -25,6 +23,4 @@ public:
 };
 
 //-----------------------------------------------------------------------------
-} // namespace convert
-} // namespace ptb
-} // namespace ha
+} // namespace ha::ptb::convert

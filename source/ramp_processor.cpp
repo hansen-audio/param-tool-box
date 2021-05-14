@@ -3,9 +3,7 @@
 #include "ha/param_tool_box/process/ramp_processor.h"
 #include <algorithm>
 
-namespace ha {
-namespace ptb {
+namespace ha::ptb {
 
 //-----------------------------------------------------------------------------
-} // namespace ptb
-} // namespace ha
+} // namespace ha::ptb

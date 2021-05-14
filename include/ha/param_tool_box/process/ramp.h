@@ -4,8 +4,7 @@
 
 #include "ha/param_tool_box/core/types.h"
 
-namespace ha {
-namespace ptb {
+namespace ha::ptb {
 
 //------------------------------------------------------------------------
 //  ramp
@@ -30,5 +29,4 @@ private:
 };
 
 //-----------------------------------------------------------------------------
-} // namespace ptb
-} // namespace ha
+} // namespace ha::ptb

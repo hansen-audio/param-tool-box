@@ -6,8 +6,7 @@
 #include "ramp.h"
 #include <functional>
 
-namespace ha {
-namespace ptb {
+namespace ha::ptb {
 
 //------------------------------------------------------------------------
 /* ramp_processor
@@ -111,5 +110,4 @@ bool ramp_processor<Func>::prepare_ramp(i32 index)
 }
 
 //-----------------------------------------------------------------------------
-} // namespace ptb
-} // namespace ha
+} // namespace ha::ptb

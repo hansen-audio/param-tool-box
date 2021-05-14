@@ -4,9 +4,7 @@
 
 #include <algorithm>
 
-namespace ha {
-namespace ptb {
-namespace convert {
+namespace ha::ptb::convert {
 
 //-----------------------------------------------------------------------------
 /*
@@ -28,6 +26,4 @@ constexpr T const clamp(T const& v, T const& lo, T const& hi)
 }
 
 //-----------------------------------------------------------------------------
-} // namespace convert
-} // namespace ptb
-} // namespace ha
+} // namespace ha::ptb::convert

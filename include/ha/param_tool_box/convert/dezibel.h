@@ -10,9 +10,7 @@
 #include <functional>
 #include <math.h>
 
-namespace ha {
-namespace ptb {
-namespace convert {
+namespace ha::ptb::convert {
 
 //-----------------------------------------------------------------------------
 /**
@@ -94,6 +92,4 @@ dezibel<RealType>::from_string(string_type const& value_string) const
 }
 
 //-----------------------------------------------------------------------------
-} // namespace convert
-} // namespace ptb
-} // namespace ha
+} // namespace ha::ptb::convert
