@@ -39,7 +39,7 @@ public:
     //-------------------------------------------------------------------------
 private:
     using scale_type = detail::log_scale<mut_value_type>;
-    typename scale_type::context_type context;
+    typename scale_type::context cx;
 };
 
 //-----------------------------------------------------------------------------
@@ -48,7 +48,7 @@ private:
 template <typename RealType>
 logarithmic<RealType>::logarithmic(value_type lo, value_type hi, value_type mid)
 {
-    context = scale_type::create(lo, hi, mid);
+    cx = scale_type::create(lo, hi, mid);
 }
 
 //-----------------------------------------------------------------------------
@@ -58,7 +58,7 @@ logarithmic<RealType>::to_physical(value_type normalized) const
 {
     value_type clamped = clamp(normalized, value_type(0.), value_type(1.));
 
-    return scale_type::scale(clamped, context);
+    return scale_type::scale(clamped, cx);
 }
 
 //-----------------------------------------------------------------------------
@@ -66,9 +66,9 @@ template <typename RealType>
 typename logarithmic<RealType>::value_type
 logarithmic<RealType>::to_normalized(value_type physical) const
 {
-    value_type clamped = clamp(physical, context.min, context.max);
+    value_type clamped = clamp(physical, cx.min, cx.max);
 
-    return scale_type::scale_inverted(clamped, context);
+    return scale_type::scale_inverted(clamped, cx);
 }
 
 //-----------------------------------------------------------------------------
@@ -76,7 +76,7 @@ template <typename RealType>
 string_type logarithmic<RealType>::to_string(value_type physical,
                                              fn_precision const& precision_func) const
 {
-    value_type tmp_physical = clamp(physical, context.min, context.max);
+    value_type tmp_physical = clamp(physical, cx.min, cx.max);
     i32 const precision     = precision_func ? precision_func(tmp_physical) : STANDARD_PRECISION;
 
     return to_string_with_precision(tmp_physical, precision);
@@ -90,7 +90,7 @@ logarithmic<RealType>::from_string(string_type const& value_string) const
     // TODO: Make this more robust to non-digit inputs.
     value_type value = std::stod(value_string);
 
-    return clamp(value, context.min, context.max);
+    return clamp(value, cx.min, cx.max);
 }
 
 //-----------------------------------------------------------------------------

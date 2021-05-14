@@ -19,7 +19,7 @@ public:
     using value_type     = RealType const;
     using mut_value_type = RealType;
 
-    struct context_type
+    struct context
     {
         mut_value_type norm_min = value_type(0.);
         mut_value_type norm_max = value_type(0.);
@@ -27,19 +27,19 @@ public:
         mut_value_type phys_max = value_type(0.);
     };
 
-    static constexpr context_type create(value_type min, value_type const max)
+    static constexpr context create(value_type min, value_type const max)
     {
         return {value_type(0.), value_type(1.), min, max};
     }
 
-    static constexpr value_type scale(value_type input, context_type const& context)
+    static constexpr value_type scale(context const& cx, value_type input)
     {
-        return input * (context.phys_max - context.phys_min) + context.phys_min;
+        return input * (cx.phys_max - cx.phys_min) + cx.phys_min;
     }
 
-    static constexpr value_type scale_inverted(value_type input, context_type const& context)
+    static constexpr value_type scale_inverted(context const& cx, value_type input)
     {
-        return (input - context.phys_min) / (context.phys_max - context.phys_min);
+        return (input - cx.phys_min) / (cx.phys_max - cx.phys_min);
     }
 };
 

@@ -38,7 +38,7 @@ public:
     //-------------------------------------------------------------------------
 private:
     using scale_type = detail::lin_scale<mut_value_type>;
-    typename scale_type::context_type context;
+    typename scale_type::context cx;
     StringListType m_string_list;
 
     value_type round(value_type x) const;
@@ -51,7 +51,7 @@ template <typename RealType, typename StringListType>
 string_list<RealType, StringListType>::string_list(StringListType string_list)
 : m_string_list(std::move(string_list))
 {
-    context = scale_type::create(0, m_string_list.size() - 1);
+    cx = scale_type::create(0, m_string_list.size() - 1);
 }
 
 //-----------------------------------------------------------------------------
@@ -59,9 +59,9 @@ template <typename RealType, typename StringListType>
 typename string_list<RealType, StringListType>::value_type
 string_list<RealType, StringListType>::to_physical(value_type normalized) const
 {
-    value_type clamped = clamp(normalized, context.norm_min, context.norm_max);
+    value_type clamped = clamp(normalized, cx.norm_min, cx.norm_max);
 
-    value_type rounded = scale_type::scale(clamped, context);
+    value_type rounded = scale_type::scale(cx, clamped);
     return round(rounded);
 }
 
@@ -70,9 +70,9 @@ template <typename RealType, typename StringListType>
 typename string_list<RealType, StringListType>::value_type
 string_list<RealType, StringListType>::to_normalized(value_type physical) const
 {
-    value_type clamped = clamp(physical, context.phys_min, context.phys_max);
+    value_type clamped = clamp(physical, cx.phys_min, cx.phys_max);
 
-    return scale_type::scale_inverted(clamped, context);
+    return scale_type::scale_inverted(cx, clamped);
 }
 
 //-----------------------------------------------------------------------------

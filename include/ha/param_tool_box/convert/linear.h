@@ -39,7 +39,7 @@ public:
     //-------------------------------------------------------------------------
 private:
     using scale_type = detail::lin_scale<mut_value_type>;
-    typename scale_type::context_type context;
+    typename scale_type::context cx;
 };
 
 //-----------------------------------------------------------------------------
@@ -48,25 +48,25 @@ private:
 template <typename RealType>
 linear<RealType>::linear(value_type min, value_type max)
 {
-    context = scale_type::create(min, max);
+    cx = scale_type::create(min, max);
 }
 
 //-----------------------------------------------------------------------------
 template <typename RealType>
 typename linear<RealType>::value_type linear<RealType>::to_physical(value_type normalized) const
 {
-    value_type clamped = clamp(normalized, context.norm_min, context.norm_max);
+    value_type clamped = clamp(normalized, cx.norm_min, cx.norm_max);
 
-    return scale_type::scale(clamped, context);
+    return scale_type::scale(cx, clamped);
 }
 
 //-----------------------------------------------------------------------------
 template <typename RealType>
 typename linear<RealType>::value_type linear<RealType>::to_normalized(value_type physical) const
 {
-    value_type clamped = clamp(physical, context.phys_min, context.phys_max);
+    value_type clamped = clamp(physical, cx.phys_min, cx.phys_max);
 
-    return scale_type::scale_inverted(clamped, context);
+    return scale_type::scale_inverted(cx, clamped);
 }
 
 //-----------------------------------------------------------------------------
@@ -74,7 +74,7 @@ template <typename RealType>
 string_type linear<RealType>::to_string(value_type physical,
                                         fn_precision const& precision_func) const
 {
-    value_type tmp_physical = clamp(physical, context.phys_min, context.phys_max);
+    value_type tmp_physical = clamp(physical, cx.phys_min, cx.phys_max);
     i32 const precision     = precision_func ? precision_func(tmp_physical) : STANDARD_PRECISION;
 
     return to_string_with_precision(tmp_physical, precision);
@@ -88,7 +88,7 @@ linear<RealType>::from_string(string_type const& value_string) const
     // TODO: Make this more robust to non-digit inputs.
     value_type const value = static_cast<value_type>(std::stod(value_string));
 
-    return clamp(value, context.phys_min, context.phys_max);
+    return clamp(value, cx.phys_min, cx.phys_max);
 }
 
 //-----------------------------------------------------------------------------
