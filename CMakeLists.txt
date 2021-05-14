@@ -53,3 +53,7 @@ target_link_libraries(param-tool-box_test
         gtest_main
         param-tool-box
 )
+
+add_test(NAME param-tool-box_test 
+    COMMAND param-tool-box_test
+)
