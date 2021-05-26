@@ -49,7 +49,7 @@ template <typename RealType, typename StringListType>
 string_list<RealType, StringListType>::string_list(StringListType string_list)
 : m_string_list(std::move(string_list))
 {
-    cx = scale_type::create(0, m_string_list.size() - 1);
+    cx = scale_type::create(RealType(0.), RealType(m_string_list.size() - 1));
 }
 
 //-----------------------------------------------------------------------------
